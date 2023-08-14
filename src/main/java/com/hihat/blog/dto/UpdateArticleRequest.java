@@ -1,6 +1,5 @@
 package com.hihat.blog.dto;
 
-import com.hihat.blog.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,5 @@
 package com.hihat.blog.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
@@ -21,7 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
