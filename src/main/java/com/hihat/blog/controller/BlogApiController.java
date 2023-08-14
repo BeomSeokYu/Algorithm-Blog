@@ -3,6 +3,7 @@ package com.hihat.blog.controller;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.ArticleResponse;
+import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,5 +47,13 @@ public class BlogApiController {
         blogService.delete(id);
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @PutMapping("/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id,
+            @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle =blogService.update(id, request);
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 }

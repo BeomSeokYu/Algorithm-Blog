@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
+import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -96,7 +97,7 @@ class BlogApiControllerTest {
     }
 
     @Test
-    @DisplayName("findArticle : 블로그 글 아이디로 조회")
+    @DisplayName("findArticle : 블로그 글 조회")
     public void findArticle() throws Exception {
         // given
         final String url = "/blog/articles/{id}";
@@ -118,7 +119,7 @@ class BlogApiControllerTest {
     }
 
     @Test
-    @DisplayName("deleteArticle : 블로그 글 아이디로 삭제")
+    @DisplayName("deleteArticle : 블로그 글 삭제")
     public void deleteArticle() throws Exception {
         // given
         final String url = "/blog/articles/{id}";
@@ -138,5 +139,36 @@ class BlogApiControllerTest {
 
         List<Article> articles =blogRepository.findAll();
         assertThat(articles).isEmpty();
+    }
+
+    @Test
+    @DisplayName("updateArticle : 블로그 글 수정")
+    public void updateArticle() throws Exception {
+        // given
+        final String url = "/blog/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        final String newTitle = "new title";
+        final String newContent = "new content";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        // when
+        ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        // then
+        result.andExpect(status().isOk());
+
+        Article article = blogRepository.findById(savedArticle.getId()).get();
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
     }
 }
