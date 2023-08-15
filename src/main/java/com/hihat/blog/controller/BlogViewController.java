@@ -2,12 +2,14 @@ package com.hihat.blog.controller;
 
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.ArticleListViewResponse;
+import com.hihat.blog.dto.ArticleViewResponse;
 import com.hihat.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,5 +34,15 @@ public class BlogViewController {
         Article article = blogService.findById(id);
         model.addAttribute("article", article);
         return "article";
+    }
+
+    @GetMapping("/new-article")
+    public String newArticle(@RequestParam(required = false) Long id, Model model) {
+        if (id == null) {
+            model.addAttribute("article", new ArticleViewResponse());
+        } else {
+            model.addAttribute("article", new ArticleViewResponse(blogService.findById(id)));
+        }
+        return "newArticle";
     }
 }

@@ -1,9 +1,13 @@
 package com.hihat.blog.dto;
 
 import com.hihat.blog.domain.Article;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Getter
+@NoArgsConstructor
 public class ArticleViewResponse {
     private Long id;
     private String title;
