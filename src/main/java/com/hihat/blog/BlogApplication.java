@@ -2,7 +2,9 @@ package com.hihat.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing // created_at / modified_at 자동 업데이트
 @SpringBootApplication
 public class BlogApplication {
 
