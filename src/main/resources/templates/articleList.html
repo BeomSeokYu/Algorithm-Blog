@@ -19,7 +19,7 @@
                     <p class="" th:text="${item.content}"></p>
                 </div>
                 <div class="card-body text-end">
-                    <a href="#" class="btn btn-secondary btn-sm justify-content-end">보러 가기</a>
+                    <a th:href="@{/articles/{id}(id=${item.getId()})}" class="btn btn-secondary btn-sm justify-content-end">보러 가기</a>
                 </div>
             </div>
         </div>
