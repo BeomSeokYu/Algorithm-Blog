@@ -50,7 +50,7 @@ class BlogApiControllerTest {
     @DisplayName("addArticle : 블로그 글 추가")
     public void addArticle() throws Exception {
         // given
-        final String url = "/blog/articles";
+        final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
         final AddArticleRequest userRequest = new AddArticleRequest(title, content);
@@ -75,7 +75,7 @@ class BlogApiControllerTest {
     @DisplayName("findAllArticles : 블로그 글 전체 목록 조회")
     public void findAllArticles() throws Exception {
         // given
-        final String url = "/blog/articles";
+        final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
 
@@ -98,7 +98,7 @@ class BlogApiControllerTest {
     @DisplayName("findArticle : 블로그 글 조회")
     public void findArticle() throws Exception {
         // given
-        final String url = "/blog/articles/{id}";
+        final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
 
@@ -120,7 +120,7 @@ class BlogApiControllerTest {
     @DisplayName("deleteArticle : 블로그 글 삭제")
     public void deleteArticle() throws Exception {
         // given
-        final String url = "/blog/articles/{id}";
+        final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
 
@@ -143,7 +143,7 @@ class BlogApiControllerTest {
     @DisplayName("updateArticle : 블로그 글 수정")
     public void updateArticle() throws Exception {
         // given
-        final String url = "/blog/articles/{id}";
+        final String url = "/api/articles/{id}";
         final String title = "title";
         final String content = "content";
 
