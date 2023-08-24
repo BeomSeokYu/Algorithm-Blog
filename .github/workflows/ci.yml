@@ -9,11 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest # 실행 환경 지정
-    env:
-      GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
-      GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
-      ISSUER: ${{secrets.ISSUER}}
-      SECRET_KEY: ${{secrets.SECRET_KEY}}
     # 실행 스탭 지정
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +17,21 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+      - name: Copy Secrets
+        env:
+          KEY_DIR: src/main/resources
+          GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+          GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+          ISSUER: ${{secrets.ISSUER}}
+          KEY_DIR_FILE_NAME: application-key.yml
+        run:
+          mkdir -p $KEY_DIR
+          touch $KEY_DIR_FILE_NAME
+          echo $GOOGLE_CLIENT_ID | base64 --decode >> $KEY_DIR/$KEY_DIR_FILE_NAME &&
+          echo $GOOGLE_CLIENT_SECRET | base64 --decode >> $KEY_DIR/$KEY_DIR_FILE_NAME &&
+          echo $ISSUER | base64 --decode >> $KEY_DIR/$KEY_DIR_FILE_NAME &&
+          echo $KEY_DIR_FILE_NAME | base64 --decode >> $KEY_DIR/$KEY_DIR_FILE_NAME
+
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
