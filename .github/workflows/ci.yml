@@ -18,6 +18,14 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      # Github Repository Secrets를 통해 application-key.yml 파일 생성
+      - name: Generate Key File
+        run: |
+          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> application-key.yml
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> application-key.yml
+          echo "ISSUER=$ISSUER" >> application-key.yml
+          echo "SECRET_KEY=$SECRET_KEY" >> application-key.yml
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 

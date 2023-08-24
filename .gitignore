@@ -217,5 +217,6 @@ gradle-app.setting
 
 ### key file
 .env
+application-key.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,java,gradle,git

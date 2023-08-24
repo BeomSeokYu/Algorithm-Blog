@@ -1,11 +1,14 @@
 spring:
+  config:
+    import: application-key.yml
+
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ${google-client-id}
-            client-secret: ${google-client-secret}
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
 
   jpa:
     # Check for transfer query
@@ -25,5 +28,5 @@ spring:
       enabled: true
 
 jwt:
-  issuer: ${issuer}
-  secret_key: ${secret_key}
+  issuer: ${ISSUER}
+  secret_key: ${SECRET_KEY}
