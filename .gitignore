@@ -215,7 +215,7 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-### key yml file
-application-key.yml
+### key file
+.env
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,java,gradle,git

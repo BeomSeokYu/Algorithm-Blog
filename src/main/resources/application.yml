@@ -1,7 +1,4 @@
 spring:
-  config:
-    import: application-key.yml
-
   security:
     oauth2:
       client:
