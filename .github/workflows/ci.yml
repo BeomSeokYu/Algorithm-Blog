@@ -19,11 +19,11 @@ jobs:
           java-version: '17'
       - name: Copy Secrets
         env:
-          KEY_YML: ${{secrets.KEY_YML}}
+          KEY_YML: ${{ secrets.KEY_YML }}
           KEY_DIR: src/main/resources
           KEY_DIR_FILE_NAME: application-key.yml
         run:
-          echo $KEY_YML | base64 --decode > $KEY_DIR/$KEY_DIR_FILE_NAME &&
+          echo $KEY_YML | base64 --decode > $KEY_DIR/$KEY_DIR_FILE_NAME
 
 
       - name: Grant execute permission for gradlew
