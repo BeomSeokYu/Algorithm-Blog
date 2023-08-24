@@ -1,0 +1,70 @@
+# 워크플로우 이름 지정
+name: CI/CD
+
+# 워크플로우가 시작될 조건 지정
+on:
+  push:
+    branches: [ main ]
+
+env:
+  S3_BUCKET_NAME: blog-deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 실행 환경 지정
+    # 실행 스탭 지정
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Copy Secrets
+        env:
+          KEY_YML: ${{ secrets.KEY_YML }}
+          KEY_DIR: src/main/resources
+          KEY_DIR_FILE_NAME: application-key.yml
+        run:
+          echo $KEY_YML | base64 --decode > $KEY_DIR/$KEY_DIR_FILE_NAME
+
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      # 현재 시간 가져오기
+      - name: Get Current Time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYY-MM-DDHH-mm-ss
+          utcOffset: "+09:00"
+
+      # 배포용 패키지 경로 저장
+      - name: Set Artifact
+        run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
+
+      # 디렉토리 생성
+      - name: Make Directory
+        run: mkdir -p deploy
+
+      # Jar 파일 복사
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy
+
+      - name: Make zip file
+        run: zip -r ./coinTalk.zip ./deploy
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./blog.zip s3://$S3_BUCKET_NAME/
