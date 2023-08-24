@@ -11,6 +11,10 @@ on:
 env:
   S3_BUCKET_NAME: blog-deploy
 
+permissions:
+  id-token: write
+  contents: read    # This is required for actions/checkout
+
 jobs:
   build:
     runs-on: ubuntu-latest # 실행 환경 지정
