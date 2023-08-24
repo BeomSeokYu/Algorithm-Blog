@@ -3,10 +3,10 @@ package com.hihat.blog.config.oauth;
 import com.hihat.blog.config.jwt.TokenProvider;
 import com.hihat.blog.domain.RefreshToken;
 import com.hihat.blog.domain.User;
+import com.hihat.blog.dto.AddUserReauest;
 import com.hihat.blog.repository.RefreshTokenRepository;
 import com.hihat.blog.service.UserService;
 import com.hihat.blog.util.CookieUtil;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +34,15 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final UserService userService;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        User user = userService.findByEmail((String) oAuth2User.getAttribute("email"));
+        User user = null;
+        try {
+            user = userService.findByEmail((String) oAuth2User.getAttribute("email"));
+        } catch (IllegalStateException e) {
+            response.sendRedirect("/signup?email=" + oAuth2User.getAttribute("email"));
+            return;
+        }
 
         // 리프레시 토큰 생성 및 저장, 쿠키에 저장
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);

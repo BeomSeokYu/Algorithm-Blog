@@ -28,7 +28,10 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/login'">로그인</button>
+    <button type="button" class="btn btn-secondary" onclick="localStorage.removeItem('access_token');location.href='/logout'">로그아웃</button>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/token.js"></script>
+
 </body>
 </html>

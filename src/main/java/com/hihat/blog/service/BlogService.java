@@ -4,7 +4,9 @@ import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
+import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,8 @@ public class BlogService {
      * @param request : AddArticleRequest
      * @return : Article
      */
-    public Article save(AddArticleRequest request) {
-        return blogRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request, String userName) {
+        return blogRepository.save(request.toEntity(userName));
     }
 
     /**
@@ -47,6 +49,9 @@ public class BlogService {
      * @param id : long id
      */
     public void delete(long id) {
+        Article article = blogRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+        authrizeArticleAuthor(article);
         blogRepository.deleteById(id);
     }
 
@@ -54,7 +59,16 @@ public class BlogService {
     public Article update(long id, UpdateArticleRequest request) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+        authrizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
         return article;
+    }
+
+    // 게시글을 작성한 유저인지 확인
+    private static void authrizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 }
