@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest # 실행 환경 지정
+    env:
+      GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+      GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+      ISSUER: ${{secrets.ISSUER}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
     # 실행 스탭 지정
     steps:
       - uses: actions/checkout@v3
