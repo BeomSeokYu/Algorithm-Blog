@@ -9,6 +9,7 @@ on:
 env:
   KEY_DIR: src/main/resources
   KEY_DIR_FILE_NAME: application-key.yml
+  AWS_ROLE_TO_ASSUME: ${{ vars.AWS_ROLE_TO_ASSUME }}
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: blog-deploy
 
@@ -28,10 +29,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      - name: Make AWS_ROLE_TO_ASSUME Environment variable
-        run: |
-          echo ${{ secrets.AWS_ROLE_TO_ASSUME }} | base64 --decode >> $GITHUB_ENV
 
       # AWS OIDC
       - name: Configure AWS credentials
