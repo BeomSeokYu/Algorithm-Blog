@@ -6,6 +6,13 @@ on:
   push:
     branches: [ main ]
 
+  workflow_call:
+    secrets:
+      AWS_ROLE_TO_ASSUME:
+        required: true
+      KEY_YML:
+        required: true
+
 env:
   KEY_DIR: src/main/resources
   KEY_DIR_FILE_NAME: application-key.yml
