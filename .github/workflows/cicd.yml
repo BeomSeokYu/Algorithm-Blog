@@ -9,6 +9,8 @@ on:
 env:
   KEY_DIR: src/main/resources
   KEY_DIR_FILE_NAME: application-key.yml
+  KEY_YML: ${{ secrets.KEY_YML }}
+  AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: blog-deploy
 
@@ -31,7 +33,7 @@ jobs:
 
       - name: Make Key yml file
         run:
-          echo ${{ secrets.KEY_YML }} | base64 --decode > ${{ env.KEY_DIR }}/${{ env.KEY_DIR_FILE_NAME }}
+          echo ${{ env.KEY_YML }} | base64 --decode > ${{ env.KEY_DIR }}/${{ env.KEY_DIR_FILE_NAME }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -57,8 +59,7 @@ jobs:
         with:
           #          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           #          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: samplerolesession
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
 
       # deploy 디렉토리 생성
