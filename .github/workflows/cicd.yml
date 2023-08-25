@@ -4,13 +4,16 @@ name: CI/CD
 # 워크플로우가 시작될 조건 지정
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 env:
+  KEY_DIR: src/main/resources
+  KEY_DIR_FILE_NAME: application-key.yml
+  AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: blog-deploy
 
+# OIDC에 쓰이는 ID 토큰 발급을 위해 정의
 permissions:
   id-token: write
   contents: read    # This is required for actions/checkout
@@ -26,14 +29,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-      - name: Copy Secrets
-        env:
-          KEY_YML: ${{ secrets.KEY_YML }}
-          KEY_DIR: src/main/resources
-          KEY_DIR_FILE_NAME: application-key.yml
-        run:
-          echo $KEY_YML | base64 --decode > $KEY_DIR/$KEY_DIR_FILE_NAME
 
+      - name: Make Key yml file
+        run:
+          echo ${{ secrets.KEY_YML }} | base64 --decode > ${{ env.KEY_DIR }}/${{ env.KEY_DIR_FILE_NAME }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -53,7 +52,17 @@ jobs:
       - name: Set Artifact
         run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
 
-      # 디렉토리 생성
+      # AWS OIDC
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          #          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          #          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secerts.AWS_ROLE_TO_ASSUME }}
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # deploy 디렉토리 생성
       - name: Make Directory
         run: mkdir -p deploy
 
@@ -62,19 +71,8 @@ jobs:
         run: cp ./build/libs/*.jar ./deploy
 
       - name: Make zip file
-        run: zip -r ./coinTalk.zip ./deploy
+        run: zip -r ./blog.zip ./deploy
         shell: bash
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        env:
-          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-to-assume: $AWS_ROLE_TO_ASSUME
-          role-session-name: samplerolesession
-          aws-region: ap-northeast-2
-
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./blog.zip s3://$S3_BUCKET_NAME/
+        run: aws s3 cp --region ${{ env.AWS_REGION }} ./blog.zip s3://${{ env.S3_BUCKET_NAME }}/
