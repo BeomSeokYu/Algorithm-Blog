@@ -11,6 +11,8 @@ env:
   KEY_DIR_FILE_NAME: application-key.yml
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: blog-deploy
+  CODE_DEPLOY_APPLICATION_NAME: spring-boot-3-blog-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: spring-boot-3-blog-deploy-group
 
 # OIDC에 쓰이는 ID 토큰 발급을 위해 정의
 permissions:
@@ -18,7 +20,7 @@ permissions:
   contents: read    # This is required for actions/checkout
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest # 실행 환경 지정
 
     # 실행 스탭 지정
@@ -41,16 +43,16 @@ jobs:
         run: ./gradlew clean build
 
       # 현재 시간 가져오기
-      - name: Get Current Time
-        uses: josStorer/get-current-time@v2.0.2
-        id: current-time
-        with:
-          format: YYYY-MM-DDHH-mm-ss
-          utcOffset: "+09:00"
+#      - name: Get Current Time
+#        uses: josStorer/get-current-time@v2.0.2
+#        id: current-time
+#        with:
+#          format: YYYY-MM-DDHH-mm-ss
+#          utcOffset: "+09:00"
 
       # 배포용 패키지 경로 저장
-      - name: Set Artifact
-        run: echo "artifact=$(ls ./build/libs)" >> $GITHUB_ENV
+      - name: Set JAR_FILE_NAME EV
+        run: echo "JAR_FILE_NAME=$(ls ./build/libs)" >> $GITHUB_ENV
 
       # AWS OIDC
       - name: Configure AWS credentials
@@ -59,17 +61,19 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # deploy 디렉토리 생성
-      - name: Make Directory
-        run: mkdir -p deploy
+      - name: Upload to AWS S3
+#        run: aws s3 cp --region ${{ env.AWS_REGION }} ./build/libs/${{ env.JAR_FILE_NAME }} s3://${{ env.S3_BUCKET_NAME }}/
+        run: |
+          aws deploy push \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+            --ignore-hidden-files \
+            --source .
 
-      # Jar 파일 복사
-      - name: Copy Jar
-        run: cp ./build/libs/*.jar ./deploy
-
-      - name: Make zip file
-        run: zip -r ./blog.zip ./deploy
-        shell: bash
-
-      - name: Upload to S3
-        run: aws s3 cp --region ${{ env.AWS_REGION }} ./blog.zip s3://${{ env.S3_BUCKET_NAME }}/
+      - name: Deploy to AWS EC2 from S3
+        run: |
+          aws deploy create-deployment \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
