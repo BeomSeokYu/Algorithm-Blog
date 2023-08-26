@@ -61,14 +61,12 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # build한 파일 모두 압축
+      - name: Make zip file
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+
       - name: Upload to AWS S3
-#        run: aws s3 cp --region ${{ env.AWS_REGION }} ./build/libs/${{ env.JAR_FILE_NAME }} s3://${{ env.S3_BUCKET_NAME }}/
-        run: |
-          aws deploy push \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
-            --ignore-hidden-files \
-            --source .
+        run: aws s3 cp --region $AWS_REGION ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
       - name: Deploy to AWS EC2 from S3
         run: |
