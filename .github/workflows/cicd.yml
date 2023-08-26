@@ -9,7 +9,6 @@ on:
 env:
   KEY_DIR: src/main/resources
   KEY_DIR_FILE_NAME: application-key.yml
-  AWS_ROLE_TO_ASSUME: ${{ vars.AWS_ROLE_TO_ASSUME }}
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: blog-deploy
 
@@ -57,7 +56,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
 
       # deploy 디렉토리 생성
