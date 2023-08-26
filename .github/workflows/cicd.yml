@@ -5,6 +5,8 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 env:
   KEY_DIR: src/main/resources
@@ -54,6 +56,10 @@ jobs:
       - name: Set JAR_FILE_NAME EV
         run: echo "JAR_FILE_NAME=$(ls ./build/libs)" >> $GITHUB_ENV
 
+      # build한 파일 모두 압축
+      - name: Make zip file
+        run: zip -r ./$GITHUB_SHA.zip .
+
       # AWS OIDC
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -61,9 +67,9 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # build한 파일 모두 압축
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+      # script files 복사
+      - name: Copy script
+        run: cp ./scripts/*.sh ./deploy
 
       - name: Upload to AWS S3
         run: aws s3 cp --region $AWS_REGION ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
@@ -74,4 +80,5 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --file-exists-behavior OVERWRITE \
           --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
