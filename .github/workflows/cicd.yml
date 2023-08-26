@@ -69,9 +69,7 @@ jobs:
 
       # script files 복사
       - name: Copy script
-        run: |
-          chmod +x ./scripts/*.sh
-          cp ./scripts/*.sh ./deploy
+        run: cp ./scripts/*.sh ./deploy
 
       - name: Upload to AWS S3
         run: aws s3 cp --region $AWS_REGION ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
