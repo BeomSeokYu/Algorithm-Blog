@@ -1,11 +1,15 @@
 #!/bin/bash
 BUILD_JAR=$(ls /home/ubuntu/app-blog/build/libs/*.jar)
 JAR_NAME=$(basename $BUILD_JAR)
-PROJECT_DIR=/home/ubuntu/app-blog
-DEPLOY_LOG=$PROJECT_DIR/log/deploy.log
-DEPLOY_ERR_LOG=$PROJECT_DIR/log/deploy_err.log
-EXEC_LOG=$PROJECT_DIR/log/exec.log
-echo "> build 파일명: $JAR_NAME" > $DEPLOY_LOG
+DEPLOY_LOG=/home/ubuntu/app-blog/log/deploy.log
+DEPLOY_ERR_LOG=/home/ubuntu/app-blog/log/deploy_err.log
+EXEC_LOG=/home/ubuntu/app-blog/log/exec.log
+
+echo "> 로그 폴더 생성" > $DEPLOY_LOG
+cd /home/ubuntu/app-blog
+mkdir log
+
+echo "> build 파일명: $JAR_NAME" >> $DEPLOY_LOG
 
 echo "> 현재 실행중인 애플리케이션 pid 확인" >> $DEPLOY_LOG
 CURRENT_PID=$(pgrep -f $JAR_NAME)
