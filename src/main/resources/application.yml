@@ -1,6 +1,6 @@
 spring:
-#  config:
-#    import: application-key.yml
+  config:
+    import: application-key.yml
 
   security:
     oauth2:

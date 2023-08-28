@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html th:fragment="layout (mainSection, scriptSection)" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>Yu's Algolithm Note</title>
+
+  <!-- ===============================================-->
+  <!--    Favicon-->
+  <!-- ===============================================-->
+<!--  <th:block th:replace="layout/favicon :: favicon"></th:block>-->
+
+  <!-- ===============================================-->
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+</head>
+
+
+<body>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+
+
+  <!---------------nav start------------------>
+  <div th:replace="layout/navbar :: navbar"></div>
+  <!---------------nav end-------------------->
+
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="py-5">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary rounded-1 mb-3">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+              <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+              <span class="fs-4">Menu</span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+              <li>
+                  <a href="#" class="nav-link active">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                      알고리즘 이론 정리
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="#" class="nav-link link-body-emphasis" aria-current="page">
+                      <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                      알고리즘 풀이 노트
+                  </a>
+              </li>
+          </ul>
+          <hr>
+        </div>
+        <div class="col-md-9">
+            <div th:replace="${mainSection}"></div>
+        </div>
+      </div>
+    </div>
+    <!-- end of .container-->
+
+  </section>
+  <!-- <section> close ============================-->
+  <!-- ============================================-->
+
+
+
+
+  <!-- ================footer start====================-->
+  <div th:replace="layout/footer :: footer"></div>
+  <!-- ================footer end======================-->
+</main>
+<script src="/assets/js/bootstrap.min.js"></script>
+</body>
+<th:block th:replace="${scriptSection}"></th:block>
+</html>

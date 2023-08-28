@@ -1,38 +1,31 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Yu's Blog</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .gradient-custom {
-            background: linear-gradient(to right, rgba(254, 238, 229, 1), rgba(229, 193, 197, 1))
-        }
-    </style>
-</head>
-<body class="gradient-custom">
-    <section class="d-flex vh-100">
+<html lang="ko"
+      th:replace="~{layout/subLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<mainSection>
+    <section class="d-flex">
         <div class="container-fluid row justify-content-center align-content-center">
-            <div class="card bg-dark" style="border-radius: 1rem;">
+            <div class="card text-dark" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
-                    <h2 class="text-white">SIGN UP</h2>
-                    <p class="text-white-50 mt-2 mb-5">서비스 사용을 위한 회원 가입</p>
+                    <h2 class="">회원가입</h2>
+                    <p class="mt-2 mb-5">서비스 사용을 위한 회원 가입</p>
 
                     <div class = "mb-2">
                         <form th:action="@{/user}" method="POST">
                             <!-- 토큰을 추가하여 CSRF 공격 방지 -->
                             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
                             <div class="mb-3">
-                                <label class="form-label text-white">Email address</label>
+                                <label class="form-label">Email address</label>
                                 <input th:if="${email} == null" type="email" class="form-control" name="email">
                                 <input th:if="${email} != null" type="email" class="form-control" name="email" th:value="${email}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-white">Password</label>
+                                <label class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-white">name</label>
+                                <label class="form-label">name</label>
                                 <input type="text" class="form-control" name="nickname">
                             </div>
 
@@ -43,7 +36,6 @@
             </div>
         </div>
     </section>
-<script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/article.js"></script>
-</body>
+</mainSection>
+<scriptSection></scriptSection>
 </html>

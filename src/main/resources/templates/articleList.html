@@ -1,16 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Yu's Blog</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="p-5 mb-5 text-center</> bg-light">
-        <h1 class="mb-3">Yu's Blog</h1>
-        <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
-    </div>
-
+<html lang="ko"
+      th:replace="~{layout/mainLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
+      xmlns:th="http://www.thymeleaf.org">
+<mainSection>
     <div class="container text-end">
         <button type="button" class="btn btn-secondary btn-sm mb-3" th:onclick="|location.href='@{/new-article}'|">글 등록</button>
     </div>
@@ -28,10 +20,8 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/login'">로그인</button>
-    <button type="button" class="btn btn-secondary" onclick="localStorage.removeItem('access_token');location.href='/logout'">로그아웃</button>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/token.js"></script>
-
-</body>
+</mainSection>
+<scriptSection></scriptSection>
 </html>

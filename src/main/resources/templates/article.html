@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Yu's Blog</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="p-5 mb-5 text-center</> bg-light">
-        <h1 class="mb-3">Yu's Blog</h1>
-        <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
-    </div>
-
-    <div class="container mt-5">
+<html lang="ko"
+      th:replace="~{layout/mainLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
+      xmlns:th="http://www.thymeleaf.org">
+<mainSection>
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <article>
@@ -30,7 +22,6 @@
             </div>
         </div>
     </div>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/article.js"></script>
-</body>
+</mainSection>
+<scriptSection></scriptSection>
 </html>
