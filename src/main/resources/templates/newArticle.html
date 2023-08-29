@@ -4,26 +4,24 @@
       xmlns:th="http://www.thymeleaf.org">
 <mainSection>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <article>
-                    <input type="hidden" id="article-id" th:value="${article.id}">
-                    <header class="mb-4">
-                        <input type="text" class="form-control" placeholder="제목" th:field="${article.title}" th:value="${article.title}">
-                    </header>
-                    <section class="mb-5">
-                        <textarea class="form-control h-25" rows="10" placeholder="내용" th:field="${article.content}" th:text="${article.content}"></textarea>
-                    </section>
-                    <button th:if="${article.id != null}" class="btn btn-warning btn-sm" type="button" id="modify-btn">수정</button>
-                    <button th:if="${article.id == null}" class="btn btn-secondary btn-sm" type="button" id="create-btn">등록</button>
-                    <button th:if="${article.id != null}" class="btn btn-secondary btn-sm" type="button" th:onclick="|location.href='@{/articles/{id}(id=${article.id})}'|">취소</button>
-                    <button th:if="${article.id == null}" class="btn btn-secondary btn-sm" type="button" th:onclick="|location.href='@{/articles}'|">목록으로</button>
-                </article>
-            </div>
-        </div>
+        <article>
+            <input type="hidden" id="article-id" th:value="${article.id}">
+            <header class="mb-4">
+                <input type="text" class="form-control" placeholder="제목" th:field="${article.title}" th:value="${article.title}">
+            </header>
+            <section class="mb-5">
+                <textarea th:field="${article.content}" th:onload=""></textarea>
+            </section>
+            <button th:if="${article.id != null}" class="btn btn-warning btn-sm" type="button" id="modify-btn">수정</button>
+            <button th:if="${article.id == null}" class="btn btn-secondary btn-sm" type="button" id="create-btn">등록</button>
+            <button th:if="${article.id != null}" class="btn btn-secondary btn-sm" type="button" th:onclick="|location.href='@{/articles/{id}(id=${article.id})}'|">취소</button>
+            <button th:if="${article.id == null}" class="btn btn-secondary btn-sm" type="button" th:onclick="|location.href='@{/articles}'|">목록으로</button>
+        </article>
     </div>
 </mainSection>
 <scriptSection>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
+    <script src="/assets/js/editor.js"></script>
     <script src="/assets/js/article.js"></script>
 </scriptSection>
 </html>

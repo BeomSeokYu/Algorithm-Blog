@@ -10,18 +10,17 @@
     <div class="container">
         <div class="row">
             <div class="col-12 card mb-3" th:each="item : ${articles}">
-                <div class="card-header card-header-tabs text-truncate" th:text="${item.title}"></div>
-                <div class="card-body">
-                    <p class="" th:text="${item.content}"></p>
+                <div class="card-header card-header-tabs text-truncate mb-1" th:text="${item.title}"></div>
+                <div class="card-body ck-content" style="overflow:scroll; width:100%; max-height: 300px">
+                    <p class="" th:utext="${item.content}"></p>
                 </div>
                 <div class="card-body text-end">
-                    <a th:href="@{/articles/{id}(id=${item.getId()})}" class="btn btn-secondary btn-sm justify-content-end">보러 가기</a>
+                    <a th:href="@{/articles/{id}(id=${item.getId()})}" class="btn btn-secondary btn-sm justify-content-end">크게 보기</a>
                 </div>
             </div>
         </div>
     </div>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/token.js"></script>
 </mainSection>
-<scriptSection></scriptSection>
+<scriptSection>
+</scriptSection>
 </html>

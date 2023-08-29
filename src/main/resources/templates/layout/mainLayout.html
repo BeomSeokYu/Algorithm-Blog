@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html th:fragment="layout (mainSection, scriptSection)" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (mainSection, scriptSection)"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +23,7 @@
   <!-- ===============================================-->
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/ckcontent.css">
 </head>
 
 
@@ -81,7 +84,8 @@
   <div th:replace="layout/footer :: footer"></div>
   <!-- ================footer end======================-->
 </main>
-<script src="/assets/js/bootstrap.min.js"></script>
 </body>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/token.js"></script>
 <th:block th:replace="${scriptSection}"></th:block>
 </html>

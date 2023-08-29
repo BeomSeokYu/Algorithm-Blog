@@ -25,7 +25,7 @@ if (modifyButton) {
         let id = params.get('id');
         let body = JSON.stringify({
             title: document.getElementById('title').value,
-            content: document.getElementById('content').value
+            content: editor.getData()
         });
 
         function success() {
@@ -47,7 +47,7 @@ if (createButton) {
     createButton.addEventListener('click', event => {
         let body = JSON.stringify({
             title: document.getElementById('title').value,
-            content: document.getElementById('content').value
+            content: editor.getData()
         });
 
         function success() {
