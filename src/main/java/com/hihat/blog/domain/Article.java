@@ -1,5 +1,6 @@
 package com.hihat.blog.domain;
 
+import com.hihat.blog.BlogApplication;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,12 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity // 엔티티 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // protected 기본 생성자
+@EntityListeners(AuditingEntityListener.class)
 public class Article {
 
     @Id
@@ -23,7 +26,7 @@ public class Article {
     @Column(name = "title", nullable = false) // Not Null
     private String title;
 
-    @Column(name = "content", nullable = false) // Not Null
+    @Column(name = "content", columnDefinition = "TEXT" ,nullable = false) // Not Null
     private String content;
 
     @Column(name = "author", nullable = false)
