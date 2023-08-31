@@ -1,8 +1,6 @@
 package com.hihat.blog.controller;
 
-import com.hihat.blog.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.hihat.blog.config.oauth.OAuth2SuccessHandler;
-import com.hihat.blog.domain.User;
 import com.hihat.blog.dto.AddUserReauest;
 import com.hihat.blog.service.UserService;
 import com.hihat.blog.util.CookieUtil;
