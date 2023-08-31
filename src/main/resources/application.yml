@@ -18,14 +18,18 @@ spring:
         format_sql: true
 
     # execute data.sql After Created table
-    defer-datasource-initialization: true
+#    defer-datasource-initialization: true
 
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-  h2:
-    console:
-      enabled: true
+    url: jdbc:mysql://localhost:3306/${DB_NAME}?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#  h2:
+#    console:
+#      enabled: true
 
 jwt:
   issuer: ${ISSUER}

@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Table(name = "refresh")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

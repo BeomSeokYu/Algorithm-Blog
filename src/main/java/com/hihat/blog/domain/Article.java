@@ -1,6 +1,5 @@
 package com.hihat.blog.domain;
 
-import com.hihat.blog.BlogApplication;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Table(name = "article")
 @Entity // 엔티티 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // protected 기본 생성자
