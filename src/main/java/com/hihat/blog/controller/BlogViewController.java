@@ -19,9 +19,12 @@ public class BlogViewController {
 
     private final BlogService blogService;
 
-    @GetMapping(value = {"/articles" , "/"})
-    public String getArticles(Model model) {
-        List<ArticleListViewResponse> articles = blogService.findAll()
+    @GetMapping(value = {"/articles"})
+    public String getArticles(@RequestParam(required = false) String type, Model model) {
+        if (type == null) {
+            type = "이론정리";
+        }
+        List<ArticleListViewResponse> articles = blogService.findAllByType(type)
                 .stream()
                 .map(ArticleListViewResponse::new)
                 .toList();

@@ -32,6 +32,9 @@ public class Article {
     @Column(name = "author", nullable = false)
     private String author;
 
+    @Column(name = "type", nullable = false)
+    private String type;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -41,15 +44,17 @@ public class Article {
     private LocalDateTime updatedAt;
 
     @Builder    // 빌더 패턴으로 객체 생성
-    public Article(String title, String content, String author) {
+    public Article(String title, String content, String author, String type) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.type = type;
     }
 
     // 수정 메서드
-    public void update(String title, String content) {
+    public void update(String title, String content, String type) {
         this.title = title;
         this.content = content;
+        this.type = type;
     }
 }

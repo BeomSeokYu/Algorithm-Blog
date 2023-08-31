@@ -3,6 +3,7 @@ package com.hihat.blog.controller;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.ArticleResponse;
+import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class BlogApiController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticle() {
-        List<ArticleResponse> articles = blogService.findAll()
+    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
+        List<ArticleResponse> articles = blogService.findAllByType(request.getType())
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();

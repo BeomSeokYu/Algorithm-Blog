@@ -25,7 +25,8 @@ if (modifyButton) {
         let id = params.get('id');
         let body = JSON.stringify({
             title: document.getElementById('title').value,
-            content: editor.getData()
+            content: editor.getData(),
+            type: document.querySelector('input[name="type"]:checked').value
         });
 
         function success() {
@@ -47,7 +48,8 @@ if (createButton) {
     createButton.addEventListener('click', event => {
         let body = JSON.stringify({
             title: document.getElementById('title').value,
-            content: editor.getData()
+            content: editor.getData(),
+            type: document.querySelector('input[name="type"]:checked').value
         });
 
         function success() {
@@ -81,7 +83,7 @@ function getCookie(key) {
 
 // HTTP 요청을 보내는 함수
 function httpRequest(method, url, body, success, fail) {
-    fetch('/api/articles', {
+    fetch(url, {
         method: method,
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token'),

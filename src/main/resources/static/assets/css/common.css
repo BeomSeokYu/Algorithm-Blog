@@ -1,0 +1,94 @@
+/**
+================================================================
+스크롤바 없애기
+================================================================
+ */
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll {
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+
+/**
+================================================================
+리스트 그룹
+================================================================
+ */
+
+.list-group {
+}
+
+.form-check-input:checked + .form-checked-content {
+    opacity: .5;
+}
+
+.form-check-input-placeholder {
+    border-style: dashed;
+}
+[contenteditable]:focus {
+    outline: 0;
+}
+
+.list-group-checkable .list-group-item {
+    cursor: pointer;
+}
+.list-group-item-check {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+.list-group-item-check:hover + .list-group-item {
+    background-color: var(--bs-secondary-bg);
+}
+.list-group-item-check:checked + .list-group-item {
+    color: #fff;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+.list-group-item-check[disabled] + .list-group-item,
+.list-group-item-check:disabled + .list-group-item {
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+
+.list-group-radio .list-group-item {
+    cursor: pointer;
+    border-radius: .5rem;
+}
+.list-group-radio .form-check-input {
+    z-index: 2;
+    margin-top: -.5em;
+}
+.list-group-radio .list-group-item:hover,
+.list-group-radio .list-group-item:focus {
+    background-color: var(--bs-secondary-bg);
+}
+
+.list-group-radio .form-check-input:checked + .list-group-item {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 2px var(--bs-primary);
+}
+.list-group-radio .form-check-input[disabled] + .list-group-item,
+.list-group-radio .form-check-input:disabled + .list-group-item {
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+
+
+/**
+================================================================
+에디터 높이 설정
+================================================================
+ */
+.ck.ck-editor {
+    max-width: 100%;
+}
+.ck-editor__editable {
+    min-height: 300px;
+}

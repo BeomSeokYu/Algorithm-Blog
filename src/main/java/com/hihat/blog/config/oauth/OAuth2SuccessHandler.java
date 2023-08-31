@@ -3,7 +3,6 @@ package com.hihat.blog.config.oauth;
 import com.hihat.blog.config.jwt.TokenProvider;
 import com.hihat.blog.domain.RefreshToken;
 import com.hihat.blog.domain.User;
-import com.hihat.blog.dto.AddUserReauest;
 import com.hihat.blog.repository.RefreshTokenRepository;
 import com.hihat.blog.service.UserService;
 import com.hihat.blog.util.CookieUtil;

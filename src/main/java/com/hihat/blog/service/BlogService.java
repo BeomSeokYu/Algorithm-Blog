@@ -30,8 +30,8 @@ public class BlogService {
      * 블로그 글 전체 목록 조회
      * @return : List<Article>
      */
-    public List<Article> findAll() {
-        return blogRepository.findAll();
+    public List<Article> findAllByType(String type) {
+        return blogRepository.findAllByType(type);
     }
 
     /**
@@ -60,7 +60,7 @@ public class BlogService {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
         authrizeArticleAuthor(article);
-        article.update(request.getTitle(), request.getContent());
+        article.update(request.getTitle(), request.getContent(), request.getType());
         return article;
     }
 

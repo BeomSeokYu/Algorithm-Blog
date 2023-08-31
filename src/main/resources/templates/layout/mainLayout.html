@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:fragment="layout (mainSection, scriptSection)"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
   <meta charset="UTF-8">
@@ -24,6 +25,7 @@
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/ckcontent.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
 </head>
 
 
@@ -52,15 +54,15 @@
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
               <li>
-                  <a href="#" class="nav-link active">
+                  <a href="/articles?type=이론정리" class="nav-link link-body-emphasis">
                       <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                       알고리즘 이론 정리
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="#" class="nav-link link-body-emphasis" aria-current="page">
+                  <a href="/articles?type=문제풀이" class="nav-link link-body-emphasis" aria-current="page">
                       <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                      알고리즘 풀이 노트
+                      알고리즘 문제 풀이
                   </a>
               </li>
           </ul>
