@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.domain.User;
 import com.hihat.blog.dto.AddArticleRequest;
+import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
 import com.hihat.blog.repository.UserRepository;
@@ -77,7 +78,8 @@ class BlogApiControllerTest {
         final String title = "title";
         final String content = "content";
         final String author = "author";
-        final AddArticleRequest userRequest = new AddArticleRequest(title, content, author);
+        final String type = "type";
+        final AddArticleRequest userRequest = new AddArticleRequest(title, content, author, type);
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         Principal principal = Mockito.mock(Principal.class);
@@ -105,9 +107,14 @@ class BlogApiControllerTest {
         // given
         final String url = "/api/articles";
         Article savedArticle = createDefaultArticle();
+        final String type = "type";
+        final GetArticleRequest userRequest = new GetArticleRequest(type);
+        final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         // when
         ResultActions result = mockMvc.perform(get(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(requestBody)
                 .accept(MediaType.APPLICATION_JSON));
 
         // then
@@ -158,8 +165,9 @@ class BlogApiControllerTest {
 
         final String newTitle = "new title";
         final String newContent = "new content";
+        final String newType = "new type";
 
-        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent, newType);
 
         // when
         ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
@@ -179,6 +187,7 @@ class BlogApiControllerTest {
                 .title("title")
                 .author(user.getUsername())
                 .content("content")
+                .type("type")
                 .build());
     }
 }
