@@ -1,6 +1,7 @@
 package com.hihat.blog.config.jwt;
 
 import com.hihat.blog.domain.User;
+import com.hihat.blog.repository.RefreshTokenRepository;
 import com.hihat.blog.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.DisplayName;
@@ -23,19 +24,17 @@ class TokenProviderTest {
     private TokenProvider tokenProvider;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private JwtProperties jwtProperties;
 
     @Test
     @DisplayName("generateToken() : 유저 정보와 만료 기간을 전달해 토큰 제작")
     void generateToken() {
         // given
-        User testUser = userRepository.save(User.builder()
+        User testUser = User.builder()
                 .email("user@email.com")
                 .password("test")
-                .build());
+                .nickname("user")
+                .build();
         // when
         String token = tokenProvider.generateToken(testUser, Duration.ofDays(14));
         // then

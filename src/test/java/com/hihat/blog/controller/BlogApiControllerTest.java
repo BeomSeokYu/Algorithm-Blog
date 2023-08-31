@@ -7,7 +7,9 @@ import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
+import com.hihat.blog.repository.RefreshTokenRepository;
 import com.hihat.blog.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -51,15 +54,22 @@ class BlogApiControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
     User user;
 
     @BeforeEach
     public void setSecurityContext() {
-        userRepository.deleteAll();
-        user = userRepository.save(User.builder()
+        user = User.builder()
                 .email("user@email.com")
                 .password("test")
-                .build());
+                .nickname("user")
+                .build();
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return;
+        }
+        user = userRepository.save(user);
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
     }
@@ -67,8 +77,19 @@ class BlogApiControllerTest {
     @BeforeEach
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        blogRepository.deleteAll();
     }
+
+    @AfterEach
+    public void after() {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            userRepository.delete(user);
+        }
+        if (refreshTokenRepository.findByUserId(user.getId()).isPresent()) {
+            refreshTokenRepository.deleteByUserId(user.getId());
+        }
+    }
+
+
 
     @Test
     @DisplayName("addArticle : 블로그 글 추가")
@@ -99,6 +120,8 @@ class BlogApiControllerTest {
         assertThat(articles.size()).isEqualTo(1);   // 크기가 1인지 검증
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
         assertThat(articles.get(0).getContent()).isEqualTo(content);
+
+        removeDefaultArticle(articles.get(0));
     }
 
     @Test
@@ -121,6 +144,8 @@ class BlogApiControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value(savedArticle.getTitle()))
                 .andExpect(jsonPath("$[0].content").value(savedArticle.getContent()));
+
+        removeDefaultArticle(savedArticle);
     }
 
     @Test
@@ -137,6 +162,8 @@ class BlogApiControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(savedArticle.getTitle()))
                 .andExpect(jsonPath("$.content").value(savedArticle.getContent()));
+
+        removeDefaultArticle(savedArticle);
     }
 
     @Test
@@ -152,8 +179,8 @@ class BlogApiControllerTest {
         // then
         result.andExpect(status().isOk());
 
-        List<Article> articles =blogRepository.findAll();
-        assertThat(articles).isEmpty();
+        Optional<Article> article = blogRepository.findById(savedArticle.getId());
+        assertThat(article).isEmpty();
     }
 
     @Test
@@ -180,6 +207,8 @@ class BlogApiControllerTest {
         Article article = blogRepository.findById(savedArticle.getId()).get();
         assertThat(article.getTitle()).isEqualTo(newTitle);
         assertThat(article.getContent()).isEqualTo(newContent);
+
+        removeDefaultArticle(savedArticle);
     }
 
     private Article createDefaultArticle() {
@@ -189,5 +218,9 @@ class BlogApiControllerTest {
                 .content("content")
                 .type("type")
                 .build());
+    }
+
+    private void removeDefaultArticle(Article articles) {
+        blogRepository.deleteById(articles.getId());
     }
 }

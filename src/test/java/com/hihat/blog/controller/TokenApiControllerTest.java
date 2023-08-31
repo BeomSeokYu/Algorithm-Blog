@@ -52,7 +52,6 @@ class TokenApiControllerTest {
     @BeforeEach
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        userRepository.deleteAll();
     }
 
 
@@ -69,7 +68,8 @@ class TokenApiControllerTest {
                 .claims(Map.of("id", testUser.getId()))
                 .build()
                 .createToken(jwtProperties);
-        refreshTokenRepository.save(new RefreshToken(testUser.getId(), refreshToken));
+        RefreshToken rt = new RefreshToken(testUser.getId(), refreshToken);
+        refreshTokenRepository.save(rt);
         CreateAccessTokenRequest request = new CreateAccessTokenRequest();
         request.setRefreshToken(refreshToken);
         final String requestBody = objectMapper.writeValueAsString(request);
@@ -81,5 +81,8 @@ class TokenApiControllerTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty());
+
+        userRepository.delete(testUser);
+        refreshTokenRepository.delete(rt);
     }
 }
