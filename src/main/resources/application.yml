@@ -16,8 +16,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    hibernate:
-      ddl-auto: update
 
     # execute data.sql After Created table
   #    defer-datasource-initialization: true
