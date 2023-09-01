@@ -16,9 +16,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    hibernate:
+      ddl-auto: update
 
     # execute data.sql After Created table
-#    defer-datasource-initialization: true
+  #    defer-datasource-initialization: true
 
   datasource:
     url: jdbc:mysql://localhost:3306/${DB_NAME}?serverTimezone=Asia/Seoul

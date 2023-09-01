@@ -39,10 +39,9 @@ jobs:
           echo ${{ secrets.KEY_YML }} | base64 --decode > ${{ env.KEY_DIR }}/${{ env.KEY_DIR_FILE_NAME }}
 
       - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
+        uses: samin/mysql-action@v1.3
+
         with:
-          host port: 3306
-          container port: 3306
           character set server: 'utf8'
           mysql database: 'blog'
           mysql user: ${{ secrets.DB_USERNAME }}
