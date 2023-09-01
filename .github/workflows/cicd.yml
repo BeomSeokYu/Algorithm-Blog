@@ -39,7 +39,7 @@ jobs:
           echo ${{ secrets.KEY_YML }} | base64 --decode > ${{ env.KEY_DIR }}/${{ env.KEY_DIR_FILE_NAME }}
 
       - name: Setup MySQL
-        uses: samin/mysql-action@v1
+        uses: mirromutth/mysql-action@v1.1
         with:
           host port: 3306
           container port: 3306
