@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -37,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc   // MockMvc 생성 및 자동 구성
+@ActiveProfiles({"test"})
 class BlogApiControllerTest {
 
     @Autowired
@@ -98,9 +100,8 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
-        final String author = "author";
         final String type = "type";
-        final AddArticleRequest userRequest = new AddArticleRequest(title, content, author, type);
+        final AddArticleRequest userRequest = new AddArticleRequest(title, content, type);
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         Principal principal = Mockito.mock(Principal.class);
@@ -115,7 +116,7 @@ class BlogApiControllerTest {
         // then
         result.andExpect(status().isCreated());
 
-        List<Article> articles = blogRepository.findAll();
+        List<Article> articles = blogRepository.findAllByAuthor(principal.getName());
 
         assertThat(articles.size()).isEqualTo(1);   // 크기가 1인지 검증
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
