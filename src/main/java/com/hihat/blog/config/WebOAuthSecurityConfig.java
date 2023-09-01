@@ -1,5 +1,6 @@
 package com.hihat.blog.config;
 
+import com.hihat.blog.config.jwt.AuthTokenManager;
 import com.hihat.blog.config.jwt.TokenAuthenticationFilter;
 import com.hihat.blog.config.jwt.TokenProvider;
 import com.hihat.blog.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
@@ -20,8 +21,6 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-
 @RequiredArgsConstructor
 @Configuration
 public class WebOAuthSecurityConfig {
@@ -30,6 +29,7 @@ public class WebOAuthSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserService userService;
+    private final AuthTokenManager authTokenManager;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -65,10 +65,6 @@ public class WebOAuthSecurityConfig {
                 .userInfoEndpoint()
                 .userService(oAuth2UserCustomService);
 
-        http.logout()
-                .logoutSuccessUrl("/login");
-
-
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
@@ -80,10 +76,10 @@ public class WebOAuthSecurityConfig {
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
-        return new OAuth2SuccessHandler(tokenProvider,
-                refreshTokenRepository,
+        return new OAuth2SuccessHandler(
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
-                userService
+                userService,
+                authTokenManager
         );
     }
 

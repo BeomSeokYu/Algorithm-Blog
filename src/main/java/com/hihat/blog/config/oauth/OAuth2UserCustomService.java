@@ -23,7 +23,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         return user;
     }
 
-    public User saveOrUpdate(OAuth2User oAuth2User) {
+    public void saveOrUpdate(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String) attributes.get("email");
         String name = (String) attributes.get("name");
@@ -33,6 +33,6 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
                         .email(email)
                         .nickname(name)
                         .build());
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 }
