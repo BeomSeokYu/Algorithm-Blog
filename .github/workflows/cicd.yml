@@ -40,10 +40,9 @@ jobs:
 
       - name: Setup MySQL
         uses: samin/mysql-action@v1.3
-
         with:
           character set server: 'utf8'
-          mysql database: 'blog'
+          mysql database: blog
           mysql user: ${{ secrets.DB_USERNAME }}
           mysql password: ${{ secrets.DB_PASSWORD }}
 
