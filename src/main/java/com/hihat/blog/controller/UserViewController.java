@@ -16,9 +16,12 @@ public class UserViewController {
     }
 
     @GetMapping("/signup")
-    public String signup(@RequestParam(required = false) String email, Model model) {
-        if (email != null) {
+    public String signup(@RequestParam(required = false) String email,
+                         @RequestParam(required = false) String name,
+                         Model model) {
+        if (email != null && name != null) {
             model.addAttribute("email", email);
+            model.addAttribute("name", name);
         }
         return "signup";
     }
