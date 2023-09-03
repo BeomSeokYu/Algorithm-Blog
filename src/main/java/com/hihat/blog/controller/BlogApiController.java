@@ -28,14 +28,14 @@ public class BlogApiController {
                 .body(savedArticle);    // 자원의 생성이 성공했다면 글 정보를 응답 객체에 담아 전송
     }
 
-    @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
-        List<ArticleResponse> articles = blogService.findAllByType(request.getType())
-                .stream()
-                .map(ArticleResponse::new)
-                .toList();
-        return ResponseEntity.ok().body(articles);
-    }
+//    @GetMapping("/articles")
+//    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
+//        List<ArticleResponse> articles = blogService.findAllByType(request.getType())
+//                .stream()
+//                .map(ArticleResponse::new)
+//                .toList();
+//        return ResponseEntity.ok().body(articles);
+//    }
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {

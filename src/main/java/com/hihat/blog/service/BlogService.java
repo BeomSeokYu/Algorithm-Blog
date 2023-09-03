@@ -6,6 +6,8 @@ import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +32,16 @@ public class BlogService {
      * 블로그 글 전체 목록 조회
      * @return : List<Article>
      */
-    public List<Article> findAllByType(String type) {
-        return blogRepository.findAllByType(type);
+//    public List<Article> findAllByType(String type) {
+//        return blogRepository.findAllByType(type);
+//    }
+
+    /**
+     * 블로그 글 전체 목록 조회 (페이징)
+     * @return : List<Article>
+     */
+    public Page<Article> findAllByTypeAndPaging(String type, Pageable pageable) {
+        return blogRepository.findAllByType(type, pageable);
     }
 
     /**
