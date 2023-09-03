@@ -32,9 +32,9 @@ public class BlogService {
      * 블로그 글 전체 목록 조회
      * @return : List<Article>
      */
-//    public List<Article> findAllByType(String type) {
-//        return blogRepository.findAllByType(type);
-//    }
+    public Page<Article> findAllByType(String type, Pageable pageable) {
+        return blogRepository.findAllByType(type, pageable);
+    }
 
     /**
      * 블로그 글 전체 목록 조회 (페이징)

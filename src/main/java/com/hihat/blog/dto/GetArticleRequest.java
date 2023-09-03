@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class GetArticleRequest {
     private String type;
+    private Integer page;
+    private Integer size;
 }

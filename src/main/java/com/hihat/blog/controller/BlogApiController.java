@@ -6,7 +6,9 @@ import com.hihat.blog.dto.ArticleResponse;
 import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.service.BlogService;
+import com.hihat.blog.util.PageableImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +30,15 @@ public class BlogApiController {
                 .body(savedArticle);    // 자원의 생성이 성공했다면 글 정보를 응답 객체에 담아 전송
     }
 
-//    @GetMapping("/articles")
-//    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
-//        List<ArticleResponse> articles = blogService.findAllByType(request.getType())
-//                .stream()
-//                .map(ArticleResponse::new)
-//                .toList();
-//        return ResponseEntity.ok().body(articles);
-//    }
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
+        Pageable pageable = new PageableImpl(request.getPage(), request.getSize());
+        List<ArticleResponse> articles = blogService.findAllByType(request.getType(), pageable)
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+        return ResponseEntity.ok().body(articles);
+    }
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {

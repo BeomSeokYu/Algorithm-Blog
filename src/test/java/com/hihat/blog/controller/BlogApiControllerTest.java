@@ -132,7 +132,7 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         Article savedArticle = createDefaultArticle();
         final String type = "type";
-        final GetArticleRequest userRequest = new GetArticleRequest(type);
+        final GetArticleRequest userRequest = new GetArticleRequest(type, 0, 2);
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         // when
