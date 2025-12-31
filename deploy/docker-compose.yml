@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  algorithm-blog:
+    image: ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}
+    container_name: algorithm-blog
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-9000}:9000"
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-default}
+      SERVER_PORT: "9000"
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      ISSUER: ${JWT_ISSUER}
+      SECRET_KEY: ${JWT_SECRET_KEY}
+      SPRING_CONFIG_IMPORT: ${SPRING_CONFIG_IMPORT}
+    volumes:
+      - ${CONFIG_DIR:-/apps/algorithm-blog/config}/application-key.yml:/config/application-key.yml:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
