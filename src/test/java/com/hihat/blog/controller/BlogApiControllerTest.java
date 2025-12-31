@@ -100,7 +100,7 @@ class BlogApiControllerTest {
         final String title = "title";
         final String content = "content";
         final String type = "type";
-        final AddArticleRequest userRequest = new AddArticleRequest(title, content, type);
+        final AddArticleRequest userRequest = new AddArticleRequest(title, content, type, java.util.List.of());
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         Principal principal = Mockito.mock(Principal.class);
@@ -193,7 +193,7 @@ class BlogApiControllerTest {
         final String newContent = "new content";
         final String newType = "new type";
 
-        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent, newType);
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent, newType, java.util.List.of());
 
         // when
         ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
