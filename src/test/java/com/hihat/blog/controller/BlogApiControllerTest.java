@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.domain.User;
 import com.hihat.blog.dto.AddArticleRequest;
-import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.repository.BlogRepository;
 import com.hihat.blog.repository.RefreshTokenRepository;
@@ -132,13 +131,12 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         Article savedArticle = createDefaultArticle();
         final String type = "type";
-        final GetArticleRequest userRequest = new GetArticleRequest(type, 0, 2);
-        final String requestBody = objectMapper.writeValueAsString(userRequest);
 
         // when
         ResultActions result = mockMvc.perform(get(url)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(requestBody)
+                .param("type", type)
+                .param("page", "0")
+                .param("size", "2")
                 .accept(MediaType.APPLICATION_JSON));
 
         // then

@@ -17,7 +17,6 @@ import java.time.Duration;
 public class AuthTokenManager {
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
-    public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
     public static final String REDIRECT_PATH = "/";
 
     private final TokenProvider tokenProvider;
@@ -36,10 +35,7 @@ public class AuthTokenManager {
         saveRefreshToken(authenticatedUser.getId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
-        // 액세스 토큰 생성 후 패스에 엑세스 토큰 추가
-        String accessToken = tokenProvider.generateToken(authenticatedUser, ACCESS_TOKEN_DURATION);
-
-        return getTargetUrl(accessToken);
+        return getTargetUrl();
     }
 
     // 생성된 리프레시 토큰을 전달받아 데이터베이스에 저장
@@ -53,14 +49,13 @@ public class AuthTokenManager {
     // 생성된 리프레시 토큰을 쿠키에 저장
     private void addRefreshTokenToCookie(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
         int cookieMaxAge = (int) REFRESH_TOKEN_DURATION.toSeconds();
-        CookieUtil.deleteCookie(request, response, REFRESH_TOKEN_COOKIE_NAME);
-        CookieUtil.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, cookieMaxAge);
+        CookieUtil.deleteCookie(response, REFRESH_TOKEN_COOKIE_NAME, true, request.isSecure(), "Lax");
+        CookieUtil.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, cookieMaxAge, true, request.isSecure(), "Lax");
     }
 
     // 액세스 토큰을 패스에 추가
-    private String getTargetUrl(String token) {
+    private String getTargetUrl() {
         return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
-                .queryParam("token", token)
                 .build()
                 .toUriString();
     }

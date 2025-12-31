@@ -3,7 +3,6 @@ package com.hihat.blog.controller;
 import com.hihat.blog.domain.Article;
 import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.ArticleResponse;
-import com.hihat.blog.dto.GetArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.service.BlogService;
 import com.hihat.blog.util.PageableImpl;
@@ -31,9 +30,12 @@ public class BlogApiController {
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticle(@RequestBody GetArticleRequest request) {
-        Pageable pageable = new PageableImpl(request.getPage(), request.getSize());
-        List<ArticleResponse> articles = blogService.findAllByType(request.getType(), pageable)
+    public ResponseEntity<List<ArticleResponse>> findAllArticle(
+            @RequestParam String type,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size) {
+        Pageable pageable = new PageableImpl(page, size);
+        List<ArticleResponse> articles = blogService.findAllByType(type, pageable)
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();

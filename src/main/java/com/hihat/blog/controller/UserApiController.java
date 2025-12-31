@@ -40,7 +40,7 @@ public class UserApiController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtil.deleteCookie(request, response, AuthTokenManager.REFRESH_TOKEN_COOKIE_NAME);
+        CookieUtil.deleteCookie(response, AuthTokenManager.REFRESH_TOKEN_COOKIE_NAME, true, request.isSecure(), "Lax");
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/login";
     }

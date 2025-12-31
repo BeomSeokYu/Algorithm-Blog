@@ -54,7 +54,7 @@ public class PageableImpl implements Pageable {
         if (this.page < 0) {
             this.page = 0;
         }
-        return null;
+        return this;
     }
 
     @Override
@@ -71,6 +71,6 @@ public class PageableImpl implements Pageable {
 
     @Override
     public boolean hasPrevious() {
-        return false;
+        return this.page > 0;
     }
 }
