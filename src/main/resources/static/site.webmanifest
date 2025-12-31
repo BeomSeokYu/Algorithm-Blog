@@ -1,0 +1,15 @@
+{
+  "name": "Algorithm Note",
+  "short_name": "AlgoNote",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f3ee",
+  "theme_color": "#f6f3ee",
+  "icons": [
+    {
+      "src": "/assets/img/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

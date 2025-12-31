@@ -5,7 +5,29 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <meta name="description" content="알고리즘 이론과 문제 풀이를 간결하게 정리한 개인 노트입니다.">
+  <meta name="theme-color" content="#f6f3ee">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="알고리즘 노트">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <th:block>
+    <link rel="canonical" th:if="${baseUrl != null and baseUrl != ''}" th:href="${baseUrl + requestPath}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="알고리즘 노트">
+    <meta property="og:title" content="Yu's Algorithm Note">
+    <meta property="og:description" content="알고리즘 이론과 문제 풀이를 간결하게 정리한 개인 노트입니다.">
+    <meta property="og:url" th:if="${baseUrl != null and baseUrl != ''}" th:content="${baseUrl + requestPath}">
+    <meta property="og:image" th:if="${baseUrl != null and baseUrl != ''}" th:content="${baseUrl + '/assets/img/main.png'}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Yu's Algorithm Note">
+    <meta name="twitter:description" content="알고리즘 이론과 문제 풀이를 간결하게 정리한 개인 노트입니다.">
+    <meta name="twitter:image" th:if="${baseUrl != null and baseUrl != ''}" th:content="${baseUrl + '/assets/img/main.png'}">
+  </th:block>
+
   <title>Yu's Algolithm Note</title>
+
+  <th:block th:replace="layout/favicon :: favicon"></th:block>
 
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
