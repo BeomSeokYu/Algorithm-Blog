@@ -729,10 +729,18 @@ a:hover {
     margin-top: 1.6rem;
 }
 
+.pagination-slim {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
 .page-link {
     border-radius: 10px;
     border: 1px solid var(--border);
     color: var(--muted);
+    padding: 0.35rem 0.75rem;
+    min-width: 2.4rem;
+    text-align: center;
 }
 
 .page-link.active,
@@ -746,6 +754,41 @@ a:hover {
     color: var(--muted);
     pointer-events: none;
     opacity: 0.5;
+}
+
+.page-ellipsis .page-link {
+    background: transparent;
+    border-style: dashed;
+    color: var(--muted);
+    pointer-events: none;
+}
+
+.page-status {
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface-soft);
+}
+
+.page-item--mobile {
+    display: none;
+}
+
+.page-item--desktop {
+    display: inline-flex;
+}
+
+@media (max-width: 640px) {
+    .pagination-slim {
+        gap: 0.3rem;
+    }
+
+    .page-item--desktop {
+        display: none;
+    }
+
+    .page-item--mobile {
+        display: inline-flex;
+    }
 }
 
 .site-footer {

@@ -38,7 +38,19 @@ public class BlogViewController {
                 .map(ArticleListViewResponse::new)
                 .toList();
         model.addAttribute("articles", articles);
-        model.addAttribute("totalPages", pagingObj.getTotalPages());
+        int totalPages = pagingObj.getTotalPages();
+        int currentPage = totalPages == 0 ? 1 : Math.min(Math.max(pageable.getPageNumber() + 1, 1), totalPages);
+        int prevPage = Math.max(0, currentPage - 2);
+        int nextPage = totalPages == 0 ? 0 : Math.min(totalPages - 1, currentPage);
+
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("hasPrev", currentPage > 1);
+        model.addAttribute("hasNext", currentPage < totalPages);
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("lastPage", Math.max(0, totalPages - 1));
+        model.addAttribute("paginationItems", buildPaginationItems(currentPage, totalPages));
         model.addAttribute("pageable", pageable);
         model.addAttribute("type", type);
         return "articleList";
@@ -59,5 +71,36 @@ public class BlogViewController {
             model.addAttribute("article", new ArticleViewResponse(blogService.findById(id)));
         }
         return "newArticle";
+    }
+
+    private List<Integer> buildPaginationItems(int currentPage, int totalPages) {
+        if (totalPages <= 0) {
+            return List.of();
+        }
+        if (totalPages <= 7) {
+            return java.util.stream.IntStream.rangeClosed(1, totalPages).boxed().toList();
+        }
+        int start = Math.max(2, currentPage - 1);
+        int end = Math.min(totalPages - 1, currentPage + 1);
+        if (currentPage <= 3) {
+            start = 2;
+            end = 4;
+        } else if (currentPage >= totalPages - 2) {
+            start = totalPages - 3;
+            end = totalPages - 1;
+        }
+        java.util.List<Integer> items = new java.util.ArrayList<>();
+        items.add(1);
+        if (start > 2) {
+            items.add(-1);
+        }
+        for (int page = start; page <= end; page++) {
+            items.add(page);
+        }
+        if (end < totalPages - 1) {
+            items.add(-1);
+        }
+        items.add(totalPages);
+        return items;
     }
 }

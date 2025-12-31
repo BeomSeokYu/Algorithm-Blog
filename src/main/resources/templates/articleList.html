@@ -35,23 +35,47 @@
             <p>첫 글을 작성하거나 다른 카테고리를 선택해 주세요.</p>
         </div>
 
-        <nav aria-label="Page navigation" class="page-nav" th:if="${totalPages > 0}">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a th:class="|page-link ${pageable.getPageNumber() > 0 ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=${pageable.getPageNumber() - 1}, size=${pageable.getPageSize()})}"
-                       aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+        <nav aria-label="Page navigation" class="page-nav" th:if="${totalPages > 1}">
+            <ul class="pagination pagination-slim justify-content-center">
+                <li class="page-item page-item--desktop">
+                    <a th:class="|page-link ${hasPrev ? '' : 'disabled'}|"
+                       th:href="@{/articles(type=${type}, page=0, size=${pageable.getPageSize()})}"
+                       aria-label="First">
+                        처음
                     </a>
                 </li>
-                <th:block th:if="${totalPages > 0}" th:each="page : ${#numbers.sequence(1, totalPages)}">
-                <li class="page-item"><a th:class="|page-link ${page eq pageable.getPageNumber() + 1 ? 'active' : ''}|" th:href="@{/articles(type=${type}, page=${page - 1}, size=${pageable.getPageSize()})}" th:text="${page}">page</a></li>
+                <li class="page-item">
+                    <a th:class="|page-link ${hasPrev ? '' : 'disabled'}|"
+                       th:href="@{/articles(type=${type}, page=${prevPage}, size=${pageable.getPageSize()})}"
+                       aria-label="Previous">
+                        이전
+                    </a>
+                </li>
+                <li class="page-item page-item--mobile">
+                    <span class="page-link page-status" th:text="|${currentPage} / ${totalPages}|">1 / 1</span>
+                </li>
+                <th:block th:each="page : ${paginationItems}">
+                    <li class="page-item page-item--desktop" th:if="${page > 0}">
+                        <a th:class="|page-link ${page == currentPage ? 'active' : ''}|"
+                           th:href="@{/articles(type=${type}, page=${page - 1}, size=${pageable.getPageSize()})}"
+                           th:text="${page}">page</a>
+                    </li>
+                    <li class="page-item page-ellipsis page-item--desktop" th:if="${page < 0}">
+                        <span class="page-link" aria-hidden="true">...</span>
+                    </li>
                 </th:block>
                 <li class="page-item">
-                    <a th:class="|page-link ${pageable.getPageNumber() < totalPages - 1 ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=${pageable.getPageNumber() + 1}, size=${pageable.getPageSize()})}"
+                    <a th:class="|page-link ${hasNext ? '' : 'disabled'}|"
+                       th:href="@{/articles(type=${type}, page=${nextPage}, size=${pageable.getPageSize()})}"
                        aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        다음
+                    </a>
+                </li>
+                <li class="page-item page-item--desktop">
+                    <a th:class="|page-link ${hasNext ? '' : 'disabled'}|"
+                       th:href="@{/articles(type=${type}, page=${lastPage}, size=${pageable.getPageSize()})}"
+                       aria-label="Last">
+                        끝
                     </a>
                 </li>
             </ul>
