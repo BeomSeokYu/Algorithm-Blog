@@ -26,7 +26,8 @@ public class Article {
     @Column(name = "title", nullable = false) // Not Null
     private String title;
 
-    @Column(name = "content" ,nullable = false) // Not Null
+    @Lob
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT") // Not Null
     private String content;
 
     @Column(name = "author", nullable = false)

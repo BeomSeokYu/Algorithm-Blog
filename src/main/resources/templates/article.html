@@ -33,6 +33,7 @@
                     <span th:if="${article.updatedAt != article.createdAt}">(수정됨)</span>
                 </span>
             </div>
+            <hr class="content-divider">
 
             <div class="article-body ck-content" th:utext="${article.content}"></div>
         </article>

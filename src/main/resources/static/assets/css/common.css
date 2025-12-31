@@ -382,9 +382,53 @@ a:hover {
     padding-right: 0.35rem;
 }
 
+.scroll-fade {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
+}
+
+.scroll-fade::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-fade::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 999px;
+}
+
+.scroll-fade::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scroll-fade:hover::-webkit-scrollbar-thumb,
+.scroll-fade.is-scrolling::-webkit-scrollbar-thumb {
+    background: rgba(47, 111, 106, 0.35);
+}
+
+.scroll-fade.is-scrolling,
+.scroll-fade:hover {
+    scrollbar-color: rgba(47, 111, 106, 0.45) transparent;
+}
+
 .article-row__link {
     font-weight: 600;
     color: var(--accent-strong);
+}
+
+.empty-state {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.empty-state strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-bottom: 0.35rem;
 }
 
 .article-card {
@@ -427,11 +471,11 @@ a:hover {
 }
 
 .article-detail {
-    background: var(--surface);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 1.6rem;
-    box-shadow: var(--shadow);
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    box-shadow: none;
 }
 
 .article-detail__header {
@@ -455,6 +499,12 @@ a:hover {
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.content-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 0 1.5rem;
 }
 
 .article-title {
@@ -553,6 +603,16 @@ a:hover {
 .auth-form {
     display: grid;
     gap: 1rem;
+}
+
+.auth-error {
+    background: #fceceb;
+    color: #9c2f2f;
+    border: 1px solid #f3c3c1;
+    padding: 0.65rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
 }
 
 .auth-footer {

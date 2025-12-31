@@ -27,9 +27,13 @@ public class UserApiController {
 
     @PostMapping("/login")
     public void Login(@ModelAttribute LoginUserReauest loginInfo, HttpServletRequest request , HttpServletResponse response) throws IOException {
-        User user = userService.login(loginInfo.getUsername(), loginInfo.getPassword());
-        String targetUrl = authTokenManager.progressAuthenticationTokenIssuance(request, response, user);
-        response.sendRedirect(targetUrl);
+        try {
+            User user = userService.login(loginInfo.getUsername(), loginInfo.getPassword());
+            String targetUrl = authTokenManager.progressAuthenticationTokenIssuance(request, response, user);
+            response.sendRedirect(targetUrl);
+        } catch (IllegalStateException ex) {
+            response.sendRedirect("/login?error");
+        }
     }
 
     @PostMapping("/user")

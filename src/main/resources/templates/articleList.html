@@ -19,18 +19,23 @@
             </div>
         </div>
 
-        <div class="article-list stagger">
+        <div class="article-list stagger" th:if="${!#lists.isEmpty(articles)}">
             <article class="article-row" th:each="item : ${articles}">
                 <div class="article-row__meta">
                     <span class="pill" th:text="${item.type}">이론 정리</span>
                     <a class="article-row__link" th:href="@{/articles/{id}(id=${item.id})}">자세히 보기</a>
                 </div>
                 <a class="article-row__title" th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}">제목</a>
-                <div class="article-row__content ck-content scroll" th:utext="${item.content}"></div>
+                <div class="article-row__content ck-content scroll-fade" th:utext="${item.content}"></div>
             </article>
         </div>
 
-        <nav aria-label="Page navigation" class="page-nav">
+        <div class="empty-state" th:if="${#lists.isEmpty(articles)}">
+            <strong>등록된 글이 없습니다.</strong>
+            <p>첫 글을 작성하거나 다른 카테고리를 선택해 주세요.</p>
+        </div>
+
+        <nav aria-label="Page navigation" class="page-nav" th:if="${totalPages > 0}">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a th:class="|page-link ${pageable.getPageNumber() > 0 ? '' : 'disabled'}|"
@@ -39,7 +44,7 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <th:block th:each="page : ${#numbers.sequence(1, totalPages)}">
+                <th:block th:if="${totalPages > 0}" th:each="page : ${#numbers.sequence(1, totalPages)}">
                 <li class="page-item"><a th:class="|page-link ${page eq pageable.getPageNumber() + 1 ? 'active' : ''}|" th:href="@{/articles(type=${type}, page=${page - 1}, size=${pageable.getPageSize()})}" th:text="${page}">page</a></li>
                 </th:block>
                 <li class="page-item">
@@ -54,5 +59,15 @@
     </div>
 </mainSection>
 <scriptSection>
+    <script>
+        document.querySelectorAll('.scroll-fade').forEach((element) => {
+            let timer;
+            element.addEventListener('scroll', () => {
+                element.classList.add('is-scrolling');
+                window.clearTimeout(timer);
+                timer = window.setTimeout(() => element.classList.remove('is-scrolling'), 900);
+            }, { passive: true });
+        });
+    </script>
 </scriptSection>
 </html>

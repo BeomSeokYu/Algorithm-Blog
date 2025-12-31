@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserViewController {
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("loginError", true);
+        }
         return "oauthLogin";
     }
 
