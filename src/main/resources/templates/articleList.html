@@ -15,18 +15,56 @@
                 <p class="page-subtitle">핵심 개념과 풀이 흐름을 짧고 선명하게 정리했습니다.</p>
             </div>
             <div class="page-actions" id="register-btn-div">
-                <button type="button" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/new-article}'|">글 등록</button>
+                <button type="button" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/new-article(type=${type})}'|">글 등록</button>
             </div>
         </div>
+
+        <form class="list-toolbar" method="get" action="/articles">
+            <input type="hidden" name="type" th:value="${type}">
+            <input type="hidden" name="categories" th:value="${selectedCategoryIdsCsv}">
+            <div class="list-toolbar__search">
+                <input type="search" class="form-control" name="q" placeholder="제목 또는 본문 검색" th:value="${query}">
+                <button type="submit" class="btn btn-outline btn-sm">검색</button>
+            </div>
+            <div class="list-toolbar__controls">
+                <div class="list-control">
+                    <span class="list-control__label">정렬</span>
+                    <select class="form-select form-select-sm" name="sort">
+                        <option value="latest" th:selected="${sort == 'latest'}">최신순</option>
+                        <option value="oldest" th:selected="${sort == 'oldest'}">오래된순</option>
+                        <option value="title" th:selected="${sort == 'title'}">제목순</option>
+                    </select>
+                </div>
+                <div class="list-control">
+                    <span class="list-control__label">페이지</span>
+                    <select class="form-select form-select-sm" name="size">
+                        <option value="2" th:selected="${pageSize == 2}">2</option>
+                        <option value="4" th:selected="${pageSize == 4}">4</option>
+                        <option value="8" th:selected="${pageSize == 8}">8</option>
+                    </select>
+                </div>
+                <div class="list-control">
+                    <span class="list-control__label">미리보기</span>
+                    <select class="form-select form-select-sm" name="preview">
+                        <option value="on" th:selected="${showPreview}">켜기</option>
+                        <option value="off" th:selected="${!showPreview}">끄기</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-outline btn-sm">적용</button>
+            </div>
+        </form>
 
         <div class="article-list stagger" th:if="${!#lists.isEmpty(articles)}">
             <article class="article-row" th:each="item : ${articles}">
                 <div class="article-row__meta">
-                    <span class="pill" th:text="${item.type}">이론 정리</span>
+                    <div class="article-row__tags">
+                        <span class="tag-pill" th:each="category : ${item.categories}" th:text="${category}">분류</span>
+                        <span class="tag-pill" th:if="${#lists.isEmpty(item.categories)}">미분류</span>
+                    </div>
                     <a class="article-row__link" th:href="@{/articles/{id}(id=${item.id})}">자세히 보기</a>
                 </div>
                 <a class="article-row__title" th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}">제목</a>
-                <div class="article-row__content ck-content scroll-fade" th:utext="${item.content}"></div>
+                <div class="article-row__content ck-content scroll-fade" th:if="${showPreview}" th:utext="${item.content}"></div>
             </article>
         </div>
 
@@ -39,14 +77,14 @@
             <ul class="pagination pagination-slim justify-content-center">
                 <li class="page-item page-item--desktop">
                     <a th:class="|page-link ${hasPrev ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=0, size=${pageable.getPageSize()})}"
+                       th:href="@{/articles(type=${type}, page=0, size=${pageable.getPageSize()}, q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, preview=${preview})}"
                        aria-label="First">
                         처음
                     </a>
                 </li>
                 <li class="page-item">
                     <a th:class="|page-link ${hasPrev ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=${prevPage}, size=${pageable.getPageSize()})}"
+                       th:href="@{/articles(type=${type}, page=${prevPage}, size=${pageable.getPageSize()}, q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, preview=${preview})}"
                        aria-label="Previous">
                         이전
                     </a>
@@ -57,7 +95,7 @@
                 <th:block th:each="page : ${paginationItems}">
                     <li class="page-item page-item--desktop" th:if="${page > 0}">
                         <a th:class="|page-link ${page == currentPage ? 'active' : ''}|"
-                           th:href="@{/articles(type=${type}, page=${page - 1}, size=${pageable.getPageSize()})}"
+                           th:href="@{/articles(type=${type}, page=${page - 1}, size=${pageable.getPageSize()}, q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, preview=${preview})}"
                            th:text="${page}">page</a>
                     </li>
                     <li class="page-item page-ellipsis page-item--desktop" th:if="${page < 0}">
@@ -66,14 +104,14 @@
                 </th:block>
                 <li class="page-item">
                     <a th:class="|page-link ${hasNext ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=${nextPage}, size=${pageable.getPageSize()})}"
+                       th:href="@{/articles(type=${type}, page=${nextPage}, size=${pageable.getPageSize()}, q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, preview=${preview})}"
                        aria-label="Next">
                         다음
                     </a>
                 </li>
                 <li class="page-item page-item--desktop">
                     <a th:class="|page-link ${hasNext ? '' : 'disabled'}|"
-                       th:href="@{/articles(type=${type}, page=${lastPage}, size=${pageable.getPageSize()})}"
+                       th:href="@{/articles(type=${type}, page=${lastPage}, size=${pageable.getPageSize()}, q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, preview=${preview})}"
                        aria-label="Last">
                         끝
                     </a>
@@ -92,6 +130,73 @@
                 timer = window.setTimeout(() => element.classList.remove('is-scrolling'), 900);
             }, { passive: true });
         });
+    </script>
+    <script th:inline="javascript">
+        window.categoryOptions = /*[[${categoryOptions}]]*/ [];
+    </script>
+    <script src="/assets/js/tag-input.js"></script>
+    <script>
+        const toolbar = document.querySelector('.list-toolbar');
+        if (toolbar) {
+            const sortSelect = toolbar.querySelector('select[name="sort"]');
+            const sizeSelect = toolbar.querySelector('select[name="size"]');
+            const previewSelect = toolbar.querySelector('select[name="preview"]');
+            const params = new URLSearchParams(window.location.search);
+            let shouldSubmit = false;
+
+            const applyStoredValue = (paramName, storageKey, element, allowed) => {
+                if (!element) {
+                    return;
+                }
+                const paramValue = params.get(paramName);
+                if (paramValue && (!allowed || allowed.includes(paramValue))) {
+                    element.value = paramValue;
+                    sessionStorage.setItem(storageKey, paramValue);
+                    return;
+                }
+                const storedValue = sessionStorage.getItem(storageKey);
+                if (storedValue && (!allowed || allowed.includes(storedValue))) {
+                    if (!paramValue && element.value !== storedValue) {
+                        element.value = storedValue;
+                        shouldSubmit = true;
+                    }
+                }
+            };
+
+            applyStoredValue('sort', 'listSort', sortSelect, ['latest', 'oldest', 'title']);
+            applyStoredValue('size', 'listSize', sizeSelect, ['2', '4', '8']);
+            applyStoredValue('preview', 'listPreview', previewSelect, ['on', 'off']);
+
+            const persistSettings = () => {
+                if (sortSelect) {
+                    sessionStorage.setItem('listSort', sortSelect.value);
+                }
+                if (sizeSelect) {
+                    sessionStorage.setItem('listSize', sizeSelect.value);
+                }
+                if (previewSelect) {
+                    sessionStorage.setItem('listPreview', previewSelect.value);
+                }
+            };
+
+            toolbar.addEventListener('submit', () => {
+                persistSettings();
+            });
+
+            if (sortSelect) {
+                sortSelect.addEventListener('change', persistSettings);
+            }
+            if (sizeSelect) {
+                sizeSelect.addEventListener('change', persistSettings);
+            }
+            if (previewSelect) {
+                previewSelect.addEventListener('change', persistSettings);
+            }
+
+            if (shouldSubmit) {
+                toolbar.submit();
+            }
+        }
     </script>
 </scriptSection>
 </html>

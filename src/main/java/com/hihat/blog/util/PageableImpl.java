@@ -11,14 +11,20 @@ public class PageableImpl implements Pageable {
     private Sort sort;
 
     public PageableImpl(Integer page, Integer size) {
-        if (page == null || size == null) {
+        this(page, size, null);
+    }
+
+    public PageableImpl(Integer page, Integer size, Sort sort) {
+        if (page == null || page < 0) {
             page = 0;
+        }
+        if (size == null || size < 1) {
             size = 2;
         }
         this.page = page;
         this.size = size;
         this.offset = 0L;
-        sort = Sort.by("id").descending();
+        this.sort = sort != null ? sort : Sort.by("createdAt").descending();
     }
 
     @Override

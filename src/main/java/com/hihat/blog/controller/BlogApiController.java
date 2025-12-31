@@ -6,6 +6,7 @@ import com.hihat.blog.dto.ArticleResponse;
 import com.hihat.blog.dto.UpdateArticleRequest;
 import com.hihat.blog.service.BlogService;
 import com.hihat.blog.util.PageableImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/articles")
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+    public ResponseEntity<Article> addArticle(@Valid @RequestBody AddArticleRequest request, Principal principal) {
         Article savedArticle = blogService.save(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);    // 자원의 생성이 성공했다면 글 정보를 응답 객체에 담아 전송
@@ -58,7 +59,7 @@ public class BlogApiController {
 
     @PutMapping("/articles/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable long id,
-            @RequestBody UpdateArticleRequest request) {
+            @Valid @RequestBody UpdateArticleRequest request) {
         Article updatedArticle =blogService.update(id, request);
         return ResponseEntity.ok()
                 .body(updatedArticle);

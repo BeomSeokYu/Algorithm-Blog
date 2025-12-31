@@ -151,6 +151,8 @@ a:hover {
 .side-panel {
     position: sticky;
     top: 5.5rem;
+    display: grid;
+    gap: 1rem;
 }
 
 .side-card {
@@ -191,6 +193,17 @@ a:hover {
     color: var(--accent-strong);
 }
 
+.side-link.is-active {
+    background: var(--accent);
+    color: #fff;
+}
+
+.side-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.2rem 0;
+}
+
 .page {
     animation: fadeUp 0.6s ease both;
 }
@@ -218,6 +231,72 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+}
+
+.list-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: flex-end;
+    margin-bottom: 1.6rem;
+}
+
+.list-toolbar__search {
+    display: flex;
+    gap: 0.6rem;
+    flex: 1 1 280px;
+}
+
+.list-toolbar__search .form-control {
+    flex: 1 1 auto;
+}
+
+.list-toolbar__search .btn {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.2rem;
+}
+
+.list-toolbar__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: flex-end;
+}
+
+.list-control {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.list-control__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.side-filter {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.side-filter__field {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.side-filter__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.side-filter__actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
 }
 
 .breadcrumb {
@@ -368,6 +447,13 @@ a:hover {
     gap: 1rem;
 }
 
+.article-row__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
 .article-row__title {
     display: block;
     font-size: 1.2rem;
@@ -487,6 +573,15 @@ a:hover {
 
 .article-badge {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     justify-content: center;
 }
 
@@ -725,6 +820,115 @@ a:hover {
     font-size: 0.85rem;
 }
 
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.78rem;
+}
+
+.tag-input-wrapper {
+    position: relative;
+}
+
+.tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    min-height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.tag-input__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tag-input__control {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1 1 160px;
+    min-width: 140px;
+    font-size: 0.95rem;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.tag-chip button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.tag-suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 6px);
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.4rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.tag-suggestions.is-open {
+    display: flex;
+}
+
+.tag-suggestion {
+    border: none;
+    background: transparent;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 10px;
+    color: var(--text);
+}
+
+.tag-suggestion:hover {
+    background: var(--surface-soft);
+}
+
+.tag-suggestion__meta {
+    color: var(--muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
 .page-nav {
     margin-top: 1.6rem;
 }
@@ -788,6 +992,23 @@ a:hover {
 
     .page-item--mobile {
         display: inline-flex;
+    }
+
+    .list-toolbar {
+        align-items: stretch;
+    }
+
+    .list-toolbar__search,
+    .list-toolbar__controls {
+        width: 100%;
+    }
+
+    .list-toolbar__search {
+        flex-direction: column;
+    }
+
+    .tag-suggestion__meta {
+        display: none;
     }
 }
 

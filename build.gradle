@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' 	// use spring security in thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'								// java jwt library
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'							// auto mapping xml and java object
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'	// use spring oauth2

@@ -17,6 +17,9 @@
             <div class="article-detail__header">
                 <div class="article-badge">
                     <span class="pill" th:text="${article.type}">이론 정리</span>
+                    <div class="article-tags" th:if="${article.categories != null and !#lists.isEmpty(article.categories)}">
+                        <span class="tag-pill" th:each="category : ${article.categories}" th:text="${category.nameKo}">분류</span>
+                    </div>
                 </div>
                 <h1 class="article-title" th:text="${article.title}">제목</h1>
             </div>

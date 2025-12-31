@@ -47,11 +47,46 @@
       <aside class="side-panel">
         <div class="side-card">
           <div class="side-title">카테고리</div>
-          <p class="side-hint">알고리즘 학습 기록을 주제별로 모아봤어요.</p>
+          <p class="side-hint">이론 정리와 문제 풀이를 구분해서 볼 수 있어요.</p>
           <nav class="side-nav">
-            <a href="/articles?type=이론정리" class="side-link">이론 정리</a>
-            <a href="/articles?type=문제풀이" class="side-link">문제 풀이</a>
+            <a th:href="@{/articles(type='이론정리', q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, size=${pageSize}, preview=${preview})}"
+               th:classappend="${type == '이론정리'} ? ' is-active' : ''"
+               class="side-link">이론 정리</a>
+            <a th:href="@{/articles(type='문제풀이', q=${query}, categories=${selectedCategoryIdsCsv}, sort=${sort}, size=${pageSize}, preview=${preview})}"
+               th:classappend="${type == '문제풀이'} ? ' is-active' : ''"
+               class="side-link">문제 풀이</a>
           </nav>
+
+          <th:block th:if="${showFilters}">
+            <hr class="side-divider">
+            <div class="side-title">필터</div>
+            <p class="side-hint">알고리즘 분류를 태그로 선택하세요.</p>
+            <form class="side-filter" method="get" action="/articles">
+              <input type="hidden" name="type" th:value="${type}">
+              <input type="hidden" name="q" th:value="${query}">
+              <input type="hidden" name="sort" th:value="${sort}">
+              <input type="hidden" name="size" th:value="${pageSize}">
+              <input type="hidden" name="preview" th:value="${preview}">
+              <div class="side-filter__field">
+                <label class="side-filter__label">알고리즘 분류</label>
+                <div class="tag-input-wrapper"
+                     data-tag-input
+                     data-hidden="filter-category-ids"
+                     th:attr="data-selected=${selectedCategoryIdsCsv}">
+                  <div class="tag-input">
+                    <div class="tag-input__items"></div>
+                    <input type="text" class="tag-input__control" placeholder="분류 검색">
+                  </div>
+                  <div class="tag-suggestions"></div>
+                </div>
+                <input type="hidden" id="filter-category-ids" name="categories" th:value="${selectedCategoryIdsCsv}">
+              </div>
+              <div class="side-filter__actions">
+                <button type="submit" class="btn btn-outline btn-sm">필터</button>
+                <a class="btn btn-ghost btn-sm" th:href="@{/articles(type=${type})}">초기화</a>
+              </div>
+            </form>
+          </th:block>
         </div>
       </aside>
       <div class="content-panel">

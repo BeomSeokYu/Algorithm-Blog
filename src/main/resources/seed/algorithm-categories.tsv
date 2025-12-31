@@ -1,0 +1,227 @@
+분류	영문	source	problem_count
+수학	Mathematics		7810
+구현	Implementation		6627
+다이나믹 프로그래밍	Dynamic Programming		4927
+자료 구조	Data Structures		4903
+그래프 이론	Graph Theory		4738
+그리디 알고리즘	Greedy		3325
+문자열	String		2872
+브루트포스 알고리즘	Bruteforcing		2683
+그래프 탐색	Graph Traversal		2430
+정렬	Sorting		2317
+애드 혹	Ad-hoc		2174
+기하학	Geometry		1953
+트리	Tree		1833
+정수론	Number Theory		1811
+세그먼트 트리	Segment Tree	BOJ Book	1649
+이분 탐색	Binary Search		1586
+해 구성하기	Constructive		1470
+사칙연산	Arithmetic		1350
+시뮬레이션	Simulation		1317
+누적 합	Prefix Sum	BOJ Book	1311
+조합론	Combinatorics		1226
+너비 우선 탐색	Breadth-first Search		1186
+많은 조건 분기	Case Work		1132
+집합과 맵	Set / Map		1123
+비트마스킹	Bitmask		953
+깊이 우선 탐색	Depth-first Search		945
+최단 경로	Shortest Path		895
+해시를 사용한 집합과 맵	Set / Map By Hashing		797
+데이크스트라	Dijkstra's		702
+스위핑	Sweeping		663
+백트래킹	Backtracking		639
+분리 집합	Disjoint Set		636
+트리에서의 다이나믹 프로그래밍	Dynamic Programming On Trees		570
+우선순위 큐	Priority Queue		546
+트리를 사용한 집합과 맵	Set / Map By Trees		545
+파싱	Parsing		537
+게임 이론	Game Theory		513
+매개 변수 탐색	Parametric Search		510
+분할 정복	Divide And Conquer		491
+두 포인터	Two-pointer		481
+스택	Stack		473
+확률론	Probability Theory		468
+느리게 갱신되는 세그먼트 트리	Segment Tree With Lazy Propagation	BOJ Book	393
+소수 판정	Primality Test		392
+최대 유량	Maximum Flow		381
+비트필드를 이용한 다이나믹 프로그래밍	Dynamic Programming Using Bitfield		371
+오프라인 쿼리	Offline Queries		354
+분할 정복을 이용한 거듭제곱	Exponentiation By Squaring		343
+배낭 문제	Knapsack		335
+값 / 좌표 압축	Value / Coordinate Compression		304
+재귀	Recursion		302
+방향 비순환 그래프	Directed Acyclic Graph		301
+임의 정밀도 / 큰 수 연산	Arbitrary Precision / Big Integers		299
+유클리드 호제법	Euclidean Algorithm		247
+최소 스패닝 트리	Minimum Spanning Tree		245
+런타임 전의 전처리	Precomputation		240
+볼록 껍질	Convex Hull		237
+위상 정렬	Topological Sorting		235
+선형대수학	Linear Algebra		231
+에라토스테네스의 체	Sieve Of Eratosthenes		230
+이분 매칭	Bipartite Matching		221
+격자 그래프	Grid Graph		219
+포함 배제의 원리	Inclusion And Exclusion		214
+최소 공통 조상	Lowest Common Ancestor		211
+희소 배열	Sparse Table		209
+무작위화	Randomization		200
+해싱	Hashing		197
+플로이드–워셜	Floyd–warshall		191
+모듈로 곱셈 역원	Modular Multiplicative Inverse		190
+강한 연결 요소	Strongly Connected Component		182
+홀짝성	Parity		174
+역추적	Traceback		174
+작은 집합에서 큰 집합으로 합치는 테크닉	Smaller To Larger Technique		170
+선분 교차 판정	Line Segment Intersection Check		168
+고속 푸리에 변환	Fast Fourier Transform		167
+미적분학	Calculus		166
+제곱근 분할법	Square Root Decomposition	BOJ Book	163
+트라이	Trie		159
+덱	Deque		151
+삼분 탐색	Ternary Search		136
+3차원 기하학	Geometry; 3d		136
+휴리스틱	Heuristics		131
+오일러 경로 테크닉	Euler Tour Technique		129
+접미사 배열과 lcp 배열	Suffix Array And Lcp Array		128
+스프라그–그런디 정리	Sprague–grundy Theorem		126
+최소 비용 최대 유량	Minimum Cost Maximum Flow		125
+슬라이딩 윈도우	Sliding Window		125
+센트로이드	Centroid		121
+볼록 껍질을 이용한 최적화	Convex Hull Trick		120
+피타고라스 정리	Pythagoras Theorem		119
+소인수분해	Prime Factorization		118
+중간에서 만나기	Meet In The Middle		116
+순열 사이클 분할	Permutation Cycle Decomposition		115
+비트 집합	Bit Set		113
+가장 긴 증가하는 부분 수열 문제	Longest Increasing Sequence Problem		112
+kmp	Knuth–morris–pratt		108
+기댓값의 선형성	Linearity Of Expectation		106
+가우스 소거법	Gaussian Elimination		105
+heavy-light 분할	Heavy-light Decomposition		105
+이분 그래프	Bipartite Graph		102
+다각형의 넓이	Area Of A Polygon		99
+차분 배열 트릭	Difference Array		96
+최대 유량 최소 컷 정리	Max-flow Min-cut Theorem		95
+센트로이드 분할	Centroid Decomposition		91
+물리학	Physics		84
+0-1 너비 우선 탐색	0-1 Bfs		81
+페르마의 소정리	Fermat's Little Theorem		79
+오일러 경로	Eulerian Path / Circuit		78
+플러드 필	Flood-fill		74
+2-sat	2-sat		72
+단절점과 단절선	Articulation Points And Bridges		72
+큐	Queue		72
+외판원 순회 문제	Travelling Salesman Problem		69
+함수형 그래프	Functional Graph		69
+비둘기집 원리	Pigeonhole Principle		68
+평면 그래프	Planar Graph		61
+오일러 피 함수	Euler Totient Function		60
+퍼시스턴트 세그먼트 트리	Persistent Segment Tree		59
+덱을 이용한 구간 최댓값 트릭	Deque Range Maximum Trick		59
+볼록 다각형 내부의 점 판정	Point In Convex Polygon Check		58
+이중 연결 요소	Biconnected Component		58
+생성 함수	Generating Function		57
+자릿수를 이용한 다이나믹 프로그래밍	Digit Dp		57
+중국인의 나머지 정리	Chinese Remainder Theorem		56
+연결 리스트	Linked List		56
+각도 정렬	Angle Sorting		56
+트리에서의 전방향 다이나믹 프로그래밍	Rerooting On Trees		55
+트리의 지름	Diameter Of A Tree		51
+mo's	Mo's		50
+선인장	Cactus		49
+벨만–포드	Bellman–ford		47
+확장 유클리드 호제법	Extended Euclidean Algorithm		47
+조화수	Harmonic Number		47
+불변량 찾기	Finding Invariants		45
+최대 부분 배열 문제	Maximum Subarray		45
+스플레이 트리	Splay Tree		44
+분할 정복을 사용한 최적화	Divide And Conquer Optimization		44
+병렬 이분 탐색	Parallel Binary Search		40
+반평면 교집합	Half Plane Intersection		38
+부분집합의 합 다이나믹 프로그래밍	Sum Over Subsets Dynamic Programming		38
+회전하는 캘리퍼스	Rotating Calipers		37
+오일러 지표 (χ=v-e+f)	Euler Characteristic (χ=v-e+f)		37
+정규 표현식	Regular Expression		35
+함수 개형을 이용한 최적화	Slope Trick		35
+다차원 세그먼트 트리	Multidimensional Segment Tree		35
+매내처	Manacher's		33
+밀러–라빈 소수 판별법	Miller–rabin		33
+덱을 이용한 다이나믹 프로그래밍	Dynamic Programming Using A Deque		33
+아호-코라식	Aho-corasick		32
+폴라드 로	Pollard Rho		32
+뫼비우스 반전 공식	Möbius Inversion		31
+트리 동형 사상	Tree Isomorphism		30
+최장 공통 부분 수열 문제	Longest Common Subsequence		30
+머지 소트 트리	Merge Sort Tree		29
+오목 다각형 내부의 점 판정	Point In Non-convex Polygon Check		27
+링크/컷 트리	Link/cut Tree		27
+커넥션 프로파일을 이용한 다이나믹 프로그래밍	Dynamic Programming Using Connection Profile		27
+수치해석	Numerical Analysis		27
+데카르트 트리	Cartesian Tree		27
+라빈–카프	Rabin–karp		26
+담금질 기법	Simulated Annealing		26
+홀의 결혼 정리	Hall's Theorem		25
+벌리캠프–매시	Berlekamp–massey		25
+오프라인 동적 연결성 판정	Offline Dynamic Connectivity		24
+통계학	Statistics		24
+도형에서의 불 연산	Boolean Operations On Geometric Objects		22
+리–차오 트리	Li–chao Tree		22
+헝가리안	Hungarian		21
+z	Z		21
+선형 계획법	Linear Programming		21
+aliens 트릭	Aliens Trick		21
+트리 압축	Tree Compression		21
+배타적 논리합 기저 (gf(2))	Xor Basis (gf(2))		20
+세그먼트 트리 비츠	Segment Tree Beats		19
+보로노이 다이어그램	Voronoi Diagram		18
+뤼카 정리	Lucas Theorem		18
+쌍대성	Duality		18
+그린 정리	Green's Theorem		17
+서큘레이션	Circulation		17
+쌍대 그래프	Dual Graph		16
+다항식 보간법	Polynomial Interpolation		15
+일반적인 매칭	General Matching		14
+단조 큐를 이용한 최적화	Monotone Queue Optimization		14
+매트로이드	Matroid		13
+다항식을 이용한 선형점화식 계산	Linear Recurrence Calculation By Polynomials		13
+접미사 트리	Suffix Tree		13
+픽의 정리	Pick's Theorem		13
+cdq 분할 정복	Cdq		13
+4차원 이상의 기하학	Geometry; Hyperdimensional		12
+이산 로그	Discrete Logarithm		12
+최소 외접원	Minimum Enclosing Circle		12
+차분 공격	Differential Cryptanalysis		12
+트리 분할	Tree Decomposition		12
+번사이드 보조정리	Burnside's Lemma		11
+차수열	Degree Sequence		11
+bulldozer 트릭	Bulldozer Trick		11
+탑 트리	Top Tree		10
+양방향 탐색	Bidirectional Search		10
+도미네이터 트리	Dominator Tree		10
+utf-8 입력 처리	Utf-8 Inputs		10
+회문 트리	Palindrome Tree		9
+이산 제곱근	Discrete Square Root		9
+춤추는 링크	Dancing Links		9
+크누스 x	Knuth's X		9
+안정 결혼 문제	Stable Marriage Problem		8
+경사 하강법	Gradient Descent		8
+린드스트롬–게셀–비엔노 보조정리	Lindström–gessel–viennot Lemma		8
+유리 등차수열의 내림 합	Sum Of Floor Of Rational Arithmetic Sequence		8
+피사노 주기	Pisano Period		8
+델로네 삼각분할	Delaunay Triangulation		7
+베이즈 정리	Bayes Theorem		7
+로프	Rope		7
+크누스 최적화	Knuth Optimization		6
+다중 대입값 계산	Multipoint Evaluation		6
+비트 집합을 이용한 최장 공통 부분 수열 최적화	Longest Common Subsequence Using Bit Sets		6
+키네틱 세그먼트 트리	Kinetic Segment Tree		6
+히르쉬버그	Hirschberg's		5
+현 그래프	Chordal Graph		5
+생일 문제	Birthday Problem		5
+다이얼	Dial		5
+유향 최소 스패닝 트리	Directed Minimum Spanning Tree		4
+스토어–바그너	Stoer–wagner		4
+지수승강 보조정리	Lifting The Exponent Lemma		4
+하켄부시 게임	Hackenbush		3
+보이어–무어 다수결 투표	Boyer–moore Majority Vote		2
+레드-블랙 트리	Red-black Tree		

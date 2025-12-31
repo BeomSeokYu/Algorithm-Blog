@@ -1,38 +1,52 @@
 package com.hihat.blog.controller;
 
+import com.hihat.blog.domain.AlgorithmCategory;
 import com.hihat.blog.domain.Article;
+import com.hihat.blog.dto.AlgorithmCategoryOption;
 import com.hihat.blog.dto.ArticleListViewResponse;
 import com.hihat.blog.dto.ArticleViewResponse;
+import com.hihat.blog.repository.AlgorithmCategoryRepository;
 import com.hihat.blog.service.BlogService;
 import com.hihat.blog.util.PageableImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class BlogViewController {
 
     private final BlogService blogService;
+    private final AlgorithmCategoryRepository categoryRepository;
 
     @GetMapping(value = {"/articles"})
     public String getArticles(@RequestParam(required = false) String type,
                               @RequestParam(required = false) Integer page,
                               @RequestParam(required = false) Integer size,
+                              @RequestParam(required = false) String q,
+                              @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) String preview,
+                              @RequestParam(required = false) String categories,
                               Model model) {
         if (type == null) {
             type = "이론정리";
         }
-        Pageable pageable = new PageableImpl(page, size);
-        Page<Article> pagingObj = blogService.findAllByTypeAndPaging(type, pageable);
+        List<Long> categoryIds = parseCategoryIds(categories);
+        String sortKey = normalizeSort(sort);
+        Sort resolvedSort = resolveSort(sortKey);
+        int resolvedSize = normalizeSize(size);
+        Pageable pageable = new PageableImpl(page, resolvedSize, resolvedSort);
+        Page<Article> pagingObj = blogService.search(type, q, categoryIds, pageable);
         List<ArticleListViewResponse> articles = pagingObj.getContent()
                 .stream()
                 .map(ArticleListViewResponse::new)
@@ -53,6 +67,18 @@ public class BlogViewController {
         model.addAttribute("paginationItems", buildPaginationItems(currentPage, totalPages));
         model.addAttribute("pageable", pageable);
         model.addAttribute("type", type);
+        model.addAttribute("query", q == null ? "" : q);
+        model.addAttribute("sort", sortKey);
+        model.addAttribute("preview", normalizePreview(preview));
+        model.addAttribute("showPreview", !"off".equalsIgnoreCase(normalizePreview(preview)));
+        model.addAttribute("pageSize", pageable.getPageSize());
+        model.addAttribute("showFilters", true);
+        model.addAttribute("selectedCategoryIds", categoryIds);
+        model.addAttribute("selectedCategoryIdsCsv", joinCategoryIds(categoryIds));
+        model.addAttribute("categoryOptions", categoryRepository.findAllByOrderByNameKoAsc()
+                .stream()
+                .map(AlgorithmCategoryOption::new)
+                .toList());
         return "articleList";
     }
 
@@ -64,13 +90,90 @@ public class BlogViewController {
     }
 
     @GetMapping("/new-article")
-    public String newArticle(@RequestParam(required = false) Long id, Model model) {
+    public String newArticle(@RequestParam(required = false) Long id,
+                             @RequestParam(required = false) String type,
+                             Model model) {
+        String defaultType = type != null ? type : "이론정리";
+        List<Long> selectedCategoryIds = new ArrayList<>();
         if (id == null) {
             model.addAttribute("article", new ArticleViewResponse());
         } else {
-            model.addAttribute("article", new ArticleViewResponse(blogService.findById(id)));
+            Article article = blogService.findById(id);
+            model.addAttribute("article", new ArticleViewResponse(article));
+            defaultType = article.getType();
+            selectedCategoryIds = article.getCategories().stream()
+                    .map(AlgorithmCategory::getId)
+                    .toList();
         }
+        model.addAttribute("defaultType", defaultType);
+        model.addAttribute("selectedCategoryIds", selectedCategoryIds);
+        model.addAttribute("selectedCategoryIdsCsv", joinCategoryIds(selectedCategoryIds));
+        model.addAttribute("categoryOptions", categoryRepository.findAllByOrderByNameKoAsc()
+                .stream()
+                .map(AlgorithmCategoryOption::new)
+                .toList());
         return "newArticle";
+    }
+
+    private List<Long> parseCategoryIds(String categories) {
+        if (categories == null || categories.isBlank()) {
+            return List.of();
+        }
+        String[] tokens = categories.split(",");
+        List<Long> results = new ArrayList<>();
+        for (String token : tokens) {
+            String trimmed = token.trim();
+            if (trimmed.isEmpty()) {
+                continue;
+            }
+            try {
+                results.add(Long.parseLong(trimmed));
+            } catch (NumberFormatException ignored) {
+                // Ignore invalid ids.
+            }
+        }
+        return results.stream().distinct().collect(Collectors.toList());
+    }
+
+    private String normalizeSort(String sort) {
+        if (sort == null || sort.isBlank()) {
+            return "latest";
+        }
+        return switch (sort) {
+            case "latest", "oldest", "title" -> sort;
+            default -> "latest";
+        };
+    }
+
+    private Sort resolveSort(String sortKey) {
+        return switch (sortKey) {
+            case "oldest" -> Sort.by("createdAt").ascending();
+            case "title" -> Sort.by("title").ascending();
+            default -> Sort.by("createdAt").descending();
+        };
+    }
+
+    private String normalizePreview(String preview) {
+        if (preview == null || preview.isBlank()) {
+            return "on";
+        }
+        return "off".equalsIgnoreCase(preview) ? "off" : "on";
+    }
+
+    private int normalizeSize(Integer size) {
+        if (size == null) {
+            return 2;
+        }
+        return switch (size) {
+            case 2, 4, 8 -> size;
+            default -> 2;
+        };
+    }
+
+    private String joinCategoryIds(List<Long> ids) {
+        return ids.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
     }
 
     private List<Integer> buildPaginationItems(int currentPage, int totalPages) {

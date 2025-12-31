@@ -1,42 +1,125 @@
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('제목 1', '<p>내용 1</p>', '작성자 1', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('제목 2', '<p>내용 2</p>', '작성자 2', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('제목 3', '<p>내용 3</p>', '작성자 3', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES (
-  '제목 4',
-  '<p>이 글은 목록에서 스크롤을 확인할 수 있도록 길게 작성된 샘플입니다.</p><p>여러 문단과 코드 블록, 리스트를 포함해 실제 작성 흐름을 확인합니다.</p><ul><li>그래프 탐색</li><li>DP 최적화</li><li>그리디 전략</li></ul><p>긴 내용이 카드 영역을 넘어서더라도 스크롤로 자연스럽게 확인할 수 있어야 합니다.</p><p>추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다.</p><p>추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다.</p>',
-  '작성자 4',
-  '이론정리',
-  NOW(),
-  NOW()
-);
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - BFS 레벨 탐색', '<p>큐를 활용해 레벨 순으로 방문합니다.</p><p>최단 거리 문제에 자주 쓰입니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 14502 연구소', '<p>벽 3개를 세우고 안전 영역을 최대화합니다.</p><p>브루트포스 + BFS 조합을 연습하기 좋습니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 이분 탐색', '<p>정렬된 배열에서 구간을 절반씩 줄여 찾습니다.</p><pre><code>while (lo &lt;= hi) {\n  int mid = (lo + hi) / 2;\n}\n</code></pre>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 2178 미로 탐색', '<p>격자 최단 거리는 BFS로 풉니다.</p><p>방문 배열을 반드시 확인합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 세그먼트 트리', '<p>구간 합과 최댓값을 빠르게 질의합니다.</p><ul><li>구간 분할</li><li>트리 구축</li><li>업데이트</li></ul>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 1916 최소비용 구하기', '<p>다익스트라로 최단 경로를 계산합니다.</p><p>우선순위 큐 사용이 핵심입니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 최소 스패닝 트리', '<p>모든 노드를 최소 비용으로 연결합니다.</p><p>크루스칼과 프림을 비교합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 1197 최소 스패닝 트리', '<p>간선을 정렬하고 유니온 파인드를 사용합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 위상 정렬', '<p>진입 차수가 0인 노드를 순서대로 처리합니다.</p><p>사이클 존재 여부도 함께 확인합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 2623 음악프로그램', '<p>위상 정렬 결과를 출력합니다.</p><p>사이클이면 0을 출력합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 다익스트라', '<p>양의 가중치 그래프에서 최단 경로를 구합니다.</p><p>방문 처리 시점을 주의합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 4485 녹색 옷', '<p>격자형 그래프에서 다익스트라를 적용합니다.</p><p>비용 누적을 체크합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 플로이드 워셜', '<p>모든 쌍 최단 거리를 구하는 알고리즘입니다.</p><p>O(N^3) 복잡도를 이해합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 11404 플로이드', '<p>도시 간 최소 비용을 플로이드 워셜로 계산합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 유니온 파인드', '<p>서로소 집합 자료구조를 설명합니다.</p><p>경로 압축과 랭크 최적화를 포함합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 1717 집합', '<p>유니온 파인드로 합집합과 질의를 처리합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - DP 기본', '<p>작은 문제로 쪼개서 큰 문제를 해결합니다.</p><p>메모이제이션과 테이블 구성법을 정리합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 11053 LIS', '<p>가장 긴 증가하는 부분 수열을 구합니다.</p><p>O(N log N) 풀이로 정리합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 그리디', '<p>매 순간 최선의 선택을 합니다.</p><p>정당성 증명을 함께 기록합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 1931 회의실', '<p>끝나는 시간이 빠른 순서로 선택합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 누적 합', '<p>구간 합을 빠르게 계산하기 위한 전처리입니다.</p><p>1차원과 2차원을 비교합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 11659 구간 합', '<p>누적 합 배열로 질의를 처리합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 투 포인터', '<p>두 개의 포인터를 움직이며 구간 조건을 만족합니다.</p><p>정렬 여부를 확인합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 1806 부분합', '<p>최소 길이 부분합을 투 포인터로 해결합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 슬라이딩 윈도우', '<p>고정 길이 구간을 이동하면서 계산합니다.</p><p>카운트 업데이트가 핵심입니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 12891 DNA 비밀번호', '<p>문자 빈도를 유지하면서 유효 조건을 검사합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 스택과 큐', '<p>기본 자료구조의 동작을 정리합니다.</p><p>괄호 검사 예제를 포함합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 10828 스택', '<p>스택의 기본 연산을 구현합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('이론 정리 - 트라이', '<p>문자열 검색을 위한 트리 구조입니다.</p><p>접두사 탐색에 유리합니다.</p>', '관리자', '이론정리', NOW(), NOW());
-INSERT INTO article (title, content, author, type, created_at, updated_at) VALUES ('문제 풀이 - 5052 전화번호', '<p>트라이로 접두사 충돌을 검사합니다.</p>', '관리자', '문제풀이', NOW(), NOW());
-INSERT INTO users (email, password, nickname) VALUES ('beomseok.dev@gmail.com', '', 'TESTER');
+INSERT INTO algorithm_category (id, name_ko, name_en, source, problem_count) VALUES
+  (1, '수학', 'Mathematics', NULL, 7810),
+  (2, '구현', 'Implementation', NULL, 6627),
+  (3, '다이나믹 프로그래밍', 'Dynamic Programming', NULL, 4927),
+  (4, '자료 구조', 'Data Structures', NULL, 4903),
+  (5, '그래프 이론', 'Graph Theory', NULL, 4738),
+  (6, '그리디 알고리즘', 'Greedy', NULL, 3325),
+  (7, '문자열', 'String', NULL, 2872),
+  (8, '브루트포스 알고리즘', 'Bruteforcing', NULL, 2683),
+  (9, '그래프 탐색', 'Graph Traversal', NULL, 2430),
+  (10, '정렬', 'Sorting', NULL, 2317),
+  (11, '트리', 'Tree', NULL, 1833),
+  (12, '최단 경로', 'Shortest Path', NULL, 895),
+  (13, '이분 탐색', 'Binary Search', NULL, 1586),
+  (14, '세그먼트 트리', 'Segment Tree', 'BOJ Book', 1649),
+  (15, '누적 합', 'Prefix Sum', 'BOJ Book', 1311),
+  (16, '해시를 사용한 집합과 맵', 'Set / Map By Hashing', NULL, 797);
+
+INSERT INTO article (id, title, content, author, type, created_at, updated_at) VALUES
+  (1, 'BFS 레벨 탐색 정리',
+   '<p>큐를 사용해 레벨 순서대로 방문합니다.</p><p>최단 거리 문제에서 자주 쓰이며, 방문 배열로 중복 방문을 방지합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (2, 'DFS 재귀 패턴',
+   '<p>재귀 호출로 깊게 탐색한 뒤 돌아오는 구조입니다.</p><p>방문 체크와 종료 조건을 명확히 해야 합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (3, '다익스트라 핵심 정리',
+   '<p>우선순위 큐를 이용해 최단 거리를 갱신합니다.</p><p>음수 간선이 없을 때만 사용합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (4, 'DP 기본 점화식',
+   '<p>작은 문제를 반복해서 해결하는 방식입니다.</p><p>점화식을 세우고 메모이제이션 또는 테이블로 해결합니다.</p><ul><li>상태 정의</li><li>전이식</li><li>초기값</li></ul><p>시간 복잡도와 상태 공간을 함께 고려합니다.</p><p>상태 수가 커질 때는 차원을 줄이거나 슬라이딩 윈도우로 최적화할 수 있습니다.</p><pre><code>dp[i] = dp[i - 1] + dp[i - 2];\n</code></pre><p>샘플 입력과 출력 흐름을 함께 기록해 두면 검증이 빠릅니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (5, '그리디 정당성 정리',
+   '<p>매 순간 최선의 선택이 전체 최적임을 증명해야 합니다.</p><p>반례가 없는지 반드시 확인합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (6, '이분 탐색 lower/upper',
+   '<p>정렬된 배열에서 경계값을 찾는 방법입니다.</p><pre><code>while (lo &lt; hi) {
+  int mid = (lo + hi) / 2;
+}
+</code></pre><p>조건식의 방향을 바꾸면 lower/upper를 모두 구현할 수 있습니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (7, '세그먼트 트리 구조',
+   '<p>구간 쿼리를 빠르게 처리하는 자료구조입니다.</p><p>트리 높이는 O(log N)이며 업데이트도 같은 비용으로 가능합니다.</p><p>예제 구성:</p><ul><li>초기화</li><li>구간 합 쿼리</li><li>포인트 업데이트</li></ul><p>배열 인덱싱 규칙을 정리해 두면 구현이 쉬워집니다.</p><p>루트는 전체 구간을 담당하고, 자식은 반으로 나눕니다.</p><pre><code>update(node, start, end, idx, diff)\nquery(node, start, end, left, right)\n</code></pre><p>필요하면 lazy propagation으로 구간 업데이트까지 확장합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (8, '누적 합 + 구간 합',
+   '<p>누적 합을 만들면 구간 합을 O(1)에 구할 수 있습니다.</p><p>2차원 누적 합은 좌표 실수에 주의합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (9, '문자열 해싱 개요',
+   '<p>부분 문자열 비교를 빠르게 하기 위해 해싱을 사용합니다.</p><p>충돌 가능성을 낮추기 위해 모듈러를 조정합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (10, '정렬 알고리즘 비교',
+   '<p>퀵 정렬, 병합 정렬, 힙 정렬의 특성을 비교합니다.</p><p>안정성, 최악 시간복잡도를 함께 기록합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (11, '트리 기본 개념',
+   '<p>부모/자식 관계로 계층 구조를 표현합니다.</p><p>루트, 리프, 깊이 등 핵심 용어를 정리합니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (12, '브루트포스 vs 백트래킹',
+   '<p>완전 탐색을 하되 가지치기를 적용하면 백트래킹이 됩니다.</p><p>상태 공간을 줄이는 전략이 핵심입니다.</p>',
+   '관리자', '이론정리', NOW(), NOW()),
+  (13, 'BOJ 2178 미로 탐색',
+   '<p>격자에서 최단 경로를 BFS로 찾습니다.</p><p>이동 방향 배열과 방문 체크를 분리해 실수를 줄입니다.</p><p>예시 입력과 출력 흐름을 기록해 두면 디버깅이 쉬워집니다.</p><p>특히 시작점과 도착점을 혼동하지 않도록 주의합니다.</p><p>벽과 통로 표현이 0/1인지, 1/0인지 문제 조건을 재확인합니다.</p><p>경로 길이는 방문 시점의 거리 배열로 관리하면 깔끔합니다.</p><p>여러 문단을 길게 이어서 목록에서 스크롤 테스트가 가능하도록 구성했습니다.</p><p>추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다. 추가 문단을 계속 이어서 표시합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (14, 'BOJ 14502 연구소',
+   '<p>벽 3개를 세우고 안전 영역을 최대화합니다.</p><p>브루트포스 + BFS로 조합을 탐색합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (15, 'BOJ 11053 LIS',
+   '<p>가장 긴 증가하는 부분 수열을 구합니다.</p><p>O(N log N) 풀이로 최적화합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (16, 'BOJ 1931 회의실',
+   '<p>끝나는 시간이 빠른 회의를 우선 선택합니다.</p><p>정렬 기준을 명확히 두면 구현이 단순해집니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (17, 'BOJ 1920 수 찾기',
+   '<p>이분 탐색으로 존재 여부를 판단합니다.</p><p>정렬된 배열과 질의 배열을 준비합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (18, 'BOJ 10828 스택',
+   '<p>스택의 기본 연산을 구현합니다.</p><p>push, pop, top, empty를 확인합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (19, 'BOJ 11286 절댓값 힙',
+   '<p>절댓값을 기준으로 우선순위를 정합니다.</p><p>동일할 때는 음수를 먼저 출력합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (20, 'BOJ 1991 트리 순회',
+   '<p>전위/중위/후위 순회를 구현합니다.</p><p>노드 입력과 인접 관계를 정리합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (21, 'BOJ 11726 2xn',
+   '<p>타일 채우기 기본 DP 문제입니다.</p><p>모듈러 연산과 점화식을 깔끔히 유지합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (22, 'BOJ 10942 팰린드롬',
+   '<p>DP로 구간 팰린드롬을 판별합니다.</p><p>길이 1, 2를 먼저 처리한 뒤 확장합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (23, 'BOJ 1504 특정한 최단 경로',
+   '<p>특정 두 정점을 반드시 지나도록 최단 경로를 계산합니다.</p><p>다익스트라를 3회 실행해 경로 합을 비교합니다.</p><p>INF 처리와 도달 불가 케이스를 신경 써야 합니다.</p><p>경로 A: 1 → v1 → v2 → N, 경로 B: 1 → v2 → v1 → N 형태로 두 가지를 비교합니다.</p><p>각 구간이 INF라면 해당 경로는 불가능하다고 판단합니다.</p><p>우선순위 큐에서 현재 비용이 이미 크면 건너뛰는 최적화도 포함합니다.</p><pre><code>if (dist[cur] &lt; cost) continue;\n</code></pre><p>긴 설명이 목록에 길게 표시되는지 확인하는 용도로도 충분합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW()),
+  (24, 'BOJ 11659 구간 합',
+   '<p>누적 합 배열로 구간 합을 빠르게 계산합니다.</p><p>입력 크기가 크므로 빠른 입출력을 적용합니다.</p>',
+   '관리자', '문제풀이', NOW(), NOW());
+
+INSERT INTO article_category (article_id, category_id) VALUES
+  (1, 9), (1, 5),
+  (2, 9),
+  (3, 12), (3, 5),
+  (4, 3),
+  (5, 6),
+  (6, 13),
+  (7, 14), (7, 4),
+  (8, 15),
+  (9, 7), (9, 16),
+  (10, 10),
+  (11, 11),
+  (12, 8), (12, 2),
+  (13, 9), (13, 5),
+  (14, 8), (14, 9),
+  (15, 3),
+  (16, 6),
+  (17, 13),
+  (18, 4),
+  (19, 4),
+  (20, 11),
+  (21, 3),
+  (22, 3), (22, 7),
+  (23, 12), (23, 5),
+  (24, 15), (24, 4);
+
+INSERT INTO users (email, password, nickname) VALUES ('user@user.com', '$2b$10$X8aVgUaXIHCQs1GXy9Atf.hFaw8oZnsVnXmtLLYxmlkTGx4NntDcO', 'TESTER');
+
+ALTER TABLE algorithm_category ALTER COLUMN id RESTART WITH 17;
+ALTER TABLE article ALTER COLUMN id RESTART WITH 25;

@@ -23,10 +23,17 @@ if (modifyButton) {
     modifyButton.addEventListener('click', event => {
         let params = new URLSearchParams(location.search);
         let id = params.get('id');
+        const title = getTitleValue();
+        if (!title) {
+            alert('제목을 입력해 주세요.');
+            return;
+        }
+        let categoryIds = getSelectedCategoryIds();
         let body = JSON.stringify({
-            title: document.getElementById('title').value,
+            title: title,
             content: editor.getData(),
-            type: document.querySelector('input[name="type"]:checked').value
+            type: document.querySelector('input[name="type"]:checked').value,
+            categoryIds: categoryIds
         });
 
         function success() {
@@ -46,10 +53,17 @@ if (modifyButton) {
 const createButton = document.getElementById('create-btn');
 if (createButton) {
     createButton.addEventListener('click', event => {
+        const title = getTitleValue();
+        if (!title) {
+            alert('제목을 입력해 주세요.');
+            return;
+        }
+        let categoryIds = getSelectedCategoryIds();
         let body = JSON.stringify({
-            title: document.getElementById('title').value,
+            title: title,
             content: editor.getData(),
-            type: document.querySelector('input[name="type"]:checked').value
+            type: document.querySelector('input[name="type"]:checked').value,
+            categoryIds: categoryIds
         });
 
         function success() {
@@ -63,6 +77,25 @@ if (createButton) {
         }
         httpRequest("POST", "/api/articles", body, success, fail)
     })
+}
+
+function getTitleValue() {
+    const input = document.getElementById('title');
+    if (!input) {
+        return '';
+    }
+    return input.value.trim();
+}
+
+function getSelectedCategoryIds() {
+    const input = document.getElementById('category-ids');
+    if (!input || !input.value.trim()) {
+        return [];
+    }
+    return input.value
+        .split(',')
+        .map(value => Number(value.trim()))
+        .filter(value => Number.isFinite(value) && value > 0);
 }
 
 // HTTP 요청을 보내는 함수

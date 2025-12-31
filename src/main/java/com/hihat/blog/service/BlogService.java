@@ -1,8 +1,10 @@
 package com.hihat.blog.service;
 
 import com.hihat.blog.domain.Article;
+import com.hihat.blog.domain.AlgorithmCategory;
 import com.hihat.blog.dto.AddArticleRequest;
 import com.hihat.blog.dto.UpdateArticleRequest;
+import com.hihat.blog.repository.AlgorithmCategoryRepository;
 import com.hihat.blog.repository.BlogRepository;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BlogService {
     private final BlogRepository blogRepository;
+    private final AlgorithmCategoryRepository categoryRepository;
 
     /**
      * 블로그에 글 추가 메서드
@@ -25,7 +28,9 @@ public class BlogService {
      * @return : Article
      */
     public Article save(AddArticleRequest request, String userName) {
-        return blogRepository.save(request.toEntity(userName));
+        Article article = request.toEntity(userName);
+        applyCategories(article, request.getCategoryIds());
+        return blogRepository.save(article);
     }
 
     /**
@@ -42,6 +47,16 @@ public class BlogService {
      */
     public Page<Article> findAllByTypeAndPaging(String type, Pageable pageable) {
         return blogRepository.findAllByType(type, pageable);
+    }
+
+    public Page<Article> search(String type, String keyword, List<Long> categoryIds, Pageable pageable) {
+        String normalizedKeyword = keyword == null ? null : keyword.trim();
+        List<Long> filterIds = (categoryIds == null || categoryIds.isEmpty()) ? null : categoryIds;
+
+        if ((normalizedKeyword == null || normalizedKeyword.isBlank()) && filterIds == null) {
+            return blogRepository.findAllByType(type, pageable);
+        }
+        return blogRepository.search(type, normalizedKeyword, filterIds, pageable);
     }
 
     /**
@@ -71,6 +86,7 @@ public class BlogService {
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
         authrizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent(), request.getType());
+        applyCategories(article, request.getCategoryIds());
         return article;
     }
 
@@ -80,5 +96,17 @@ public class BlogService {
         if (!article.getAuthor().equals(userName)) {
             throw new IllegalArgumentException("not authorized");
         }
+    }
+
+    private void applyCategories(Article article, List<Long> categoryIds) {
+        if (categoryIds == null) {
+            return;
+        }
+        if (categoryIds.isEmpty()) {
+            article.setCategories(List.of());
+            return;
+        }
+        List<AlgorithmCategory> categories = categoryRepository.findAllById(categoryIds);
+        article.setCategories(categories);
     }
 }

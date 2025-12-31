@@ -10,6 +10,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Table(name = "article")
 @Entity // 엔티티 지정
@@ -36,6 +39,14 @@ public class Article {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @ManyToMany
+    @JoinTable(
+            name = "article_category",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<AlgorithmCategory> categories = new LinkedHashSet<>();
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -57,5 +68,12 @@ public class Article {
         this.title = title;
         this.content = content;
         this.type = type;
+    }
+
+    public void setCategories(Collection<AlgorithmCategory> categories) {
+        this.categories.clear();
+        if (categories != null) {
+            this.categories.addAll(categories);
+        }
     }
 }
