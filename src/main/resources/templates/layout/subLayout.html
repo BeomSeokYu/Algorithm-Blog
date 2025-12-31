@@ -5,59 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-  <!-- ===============================================-->
-  <!--    Document Title-->
-  <!-- ===============================================-->
   <title>Yu's Algolithm Note</title>
 
-  <!-- ===============================================-->
-  <!--    Favicon-->
-  <!-- ===============================================-->
-<!--  <th:block th:replace="layout/favicon :: favicon"></th:block>-->
-
-  <!-- ===============================================-->
-  <!--    Stylesheets-->
-  <!-- ===============================================-->
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/common.css">
 </head>
 
-
-<body>
-<!-- ===============================================-->
-<!--    Main Content-->
-<!-- ===============================================-->
+<body class="app-body">
 <main class="main" id="top">
-
-
-  <!---------------nav start------------------>
   <div th:replace="layout/navbar :: navbar"></div>
-  <!---------------nav end-------------------->
 
-  <!-- ============================================-->
-  <!-- <section> begin ============================-->
-  <section class="py-5">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-        <div th:replace="${mainSection}"></div>
-        </div>
-      </div>
+  <section class="content-section">
+    <div class="container content-wide">
+      <div th:replace="${mainSection}"></div>
     </div>
-    <!-- end of .container-->
-
   </section>
-  <!-- <section> close ============================-->
-  <!-- ============================================-->
 
-
-
-
-  <!-- ================footer start====================-->
   <div th:replace="layout/footer :: footer"></div>
-  <!-- ================footer end======================-->
 </main>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/token.js"></script>

@@ -3,33 +3,39 @@
       th:replace="~{layout/mainLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
       xmlns:th="http://www.thymeleaf.org">
 <mainSection>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <article>
-                    <input type="hidden" id="article-id" th:value="${article.id}">
-                    <div class="text-truncate text-center mb-2" th:text="${article.type}">제목</div>
-                    <div class="text-truncate text-center fs-2 mb-3" th:text="${article.title}">제목</div>
-                    <div class="row justify-content-end mb-2" id="mod-del-div">
-                        <div class="col-12 text-truncate text-end">
-                            <a th:href="@{|/new-article?id=${article.id}|}" class="mx-1 text-dark" style="cursor: pointer">수정</a>
-                            <a id="delete-btn" class="mx-1 text-dark" style="cursor: pointer">삭제</a>
-                        </div>
-                    </div>
-                    <div class="row justify-content-between">
-                        <div class="col-6 text-truncate" th:text="${article.author}"></div>
-                        <div class="col-6 text-truncate text-end">
-                            <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
-                            <span th:if="${article.updatedAt != article.createdAt}">(수정됨)</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="ck-content">
-                        <p class="" th:utext="${article.content}"></p>
-                    </div>
-                </article>
-            </div>
+    <div class="page">
+        <div class="breadcrumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <a th:href="@{/articles(type=${article.type})}" th:text="${article.type}">카테고리</a>
+            <span>/</span>
+            <span>Article</span>
         </div>
+
+        <article class="article-detail">
+            <input type="hidden" id="article-id" th:value="${article.id}">
+            <div class="article-detail__header">
+                <div class="article-badge">
+                    <span class="pill" th:text="${article.type}">이론 정리</span>
+                </div>
+                <h1 class="article-title" th:text="${article.title}">제목</h1>
+            </div>
+
+            <div class="article-actions" id="mod-del-div">
+                <a th:href="@{|/new-article?id=${article.id}|}" class="text-link">수정</a>
+                <button id="delete-btn" class="text-link" type="button">삭제</button>
+            </div>
+
+            <div class="article-meta-row">
+                <span class="article-author" th:text="${article.author}">작성자</span>
+                <span class="article-date">
+                    <span th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                    <span th:if="${article.updatedAt != article.createdAt}">(수정됨)</span>
+                </span>
+            </div>
+
+            <div class="article-body ck-content" th:utext="${article.content}"></div>
+        </article>
     </div>
 </mainSection>
 <scriptSection>

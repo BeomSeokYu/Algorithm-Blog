@@ -1,25 +1,18 @@
 <!-- navbar.html -->
 
 <th:block th:fragment="navbar">
-  <!-- <nav> begin ============================-->
-  <nav class="py-2 bg-body-tertiary border-bottom fixed-top">
-    <div class="container d-flex flex-wrap">
-      <ul class="nav me-auto">
-        <li class="nav-item"><a href="/" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">About</a></li>
-      </ul>
-      <ul class="nav" id="nav-login-ul">
-      </ul>
+  <nav class="site-nav" aria-label="Main">
+    <div class="container nav-inner">
+      <a href="/" class="brand" aria-label="알고리즘 노트 홈">
+        <span class="brand-mark">Y</span>
+        <span class="brand-text">알고리즘 노트</span>
+      </a>
+      <div class="nav-links" role="navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/articles?type=이론정리" class="nav-link">이론 정리</a>
+        <a href="/articles?type=문제풀이" class="nav-link">문제 풀이</a>
+      </div>
+      <ul class="nav nav-auth" id="nav-login-ul"></ul>
     </div>
   </nav>
-  <header class="py-3 mb-4 border-bottom" style="margin-top: 55px">
-    <div class="container d-flex flex-wrap justify-content-center">
-      <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-4">알고리즘 노트</span>
-      </a>
-    </div>
-  </header>
-  <!---------------nav end-------------------->
 </th:block>

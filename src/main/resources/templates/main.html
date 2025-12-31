@@ -3,20 +3,23 @@
       th:replace="~{layout/subLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
       xmlns:th="http://www.thymeleaf.org">
 <mainSection>
-    <div class="px-4 pt-5 my-5 text-center border-bottom">
-        <h1 class="display-4 fw-bold text-body-emphasis">Yu's Algorithm Note</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">백준 온라인 저지 및 프로그래머스에서 푼 알고리즘 문제 중<br> 주요한 알고리즘 문제를 정리한 블로그 입니다.</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <a href="/articles?type=이론정리" class="btn btn-primary btn-lg px-4 me-sm-3">이론 정리 가기</a>
-                <a href="/articles?type=문제풀이" class="btn btn-outline-secondary btn-lg px-4">문제 풀이 가기</a>
+    <div class="page">
+        <section class="hero hero--plain">
+            <div class="hero-content hero-content--center">
+                <span class="hero-kicker">Algorithm Note</span>
+                <h1 class="hero-title">Yu's Algorithm Note</h1>
+                <p class="hero-lead">백준 온라인 저지 및 프로그래머스에서 푼 알고리즘 문제 중<br> 주요한 알고리즘 문제를 정리한 블로그 입니다.</p>
+                <div class="hero-actions">
+                    <a href="/articles?type=이론정리" class="btn btn-primary btn-lg">이론 정리 가기</a>
+                    <a href="/articles?type=문제풀이" class="btn btn-ghost btn-lg">문제 풀이 가기</a>
+                </div>
             </div>
-        </div>
-        <div class="overflow-hidden" style="max-height: 30vh;">
-            <div class="container px-5">
-                <img src="/assets/img/main.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+            <div class="hero-media hero-media--center">
+                <div class="hero-image-crop">
+                    <img src="/assets/img/main.png" class="hero-image" alt="Algorithm note" loading="lazy">
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 </mainSection>
 <scriptSection>

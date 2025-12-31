@@ -3,22 +3,34 @@
       th:replace="~{layout/mainLayout :: layout(~{::mainSection}, ~{::scriptSection})}"
       xmlns:th="http://www.thymeleaf.org">
 <mainSection>
-    <div class="container text-end" id="register-btn-div">
-        <button type="button" class="btn btn-secondary btn-sm mb-3" th:onclick="|location.href='@{/new-article}'|">글 등록</button>
-    </div>
-
-    <div class="container">
-        <div class="row" style="height: 550px">
-            <div class="col-12 card mb-3" th:each="item : ${articles}" style="height: 250px">
-                <a class="text-muted" th:href="@{/articles/{id}(id=${item.id})}">
-                    <div class="card-header card-header-tabs text-truncate mb-1" th:text="${item.title}">제목</div>
-                </a>
-                <div class="card-body ck-content scroll" style="overflow:scroll;">
-                    <p class="" th:utext="${item.content}"></p>
+    <div class="page">
+        <div class="page-header">
+            <div>
+                <div class="breadcrumb">
+                    <a href="/">Home</a>
+                    <span>/</span>
+                    <span th:text="${type}">카테고리</span>
                 </div>
+                <h1 class="page-title" th:text="${type}">알고리즘 노트</h1>
+                <p class="page-subtitle">핵심 개념과 풀이 흐름을 짧고 선명하게 정리했습니다.</p>
+            </div>
+            <div class="page-actions" id="register-btn-div">
+                <button type="button" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/new-article}'|">글 등록</button>
             </div>
         </div>
-        <nav aria-label="Page navigation">
+
+        <div class="article-list stagger">
+            <article class="article-row" th:each="item : ${articles}">
+                <div class="article-row__meta">
+                    <span class="pill" th:text="${item.type}">이론 정리</span>
+                    <a class="article-row__link" th:href="@{/articles/{id}(id=${item.id})}">자세히 보기</a>
+                </div>
+                <a class="article-row__title" th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}">제목</a>
+                <div class="article-row__content ck-content scroll" th:utext="${item.content}"></div>
+            </article>
+        </div>
+
+        <nav aria-label="Page navigation" class="page-nav">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a th:class="|page-link ${pageable.getPageNumber() > 0 ? '' : 'disabled'}|"
