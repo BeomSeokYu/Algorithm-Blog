@@ -102,6 +102,7 @@
                 item.className = 'tag-suggestion';
 
                 const title = document.createElement('span');
+                title.className = 'tag-suggestion__title';
                 title.textContent = option.nameKo;
                 item.appendChild(title);
 

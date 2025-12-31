@@ -912,11 +912,20 @@ a:hover {
     background: transparent;
     text-align: left;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 0.6rem;
     padding: 0.45rem 0.6rem;
     border-radius: 10px;
     color: var(--text);
+}
+
+.tag-suggestion__title {
+    flex: 1 1 60%;
+    min-width: 0;
+    line-height: 1.35;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .tag-suggestion:hover {
@@ -927,6 +936,10 @@ a:hover {
     color: var(--muted);
     font-size: 0.8rem;
     white-space: nowrap;
+    flex: 0 1 auto;
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .page-nav {
