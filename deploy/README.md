@@ -1,28 +1,35 @@
 # 배포 가이드 (Raspberry Pi 4B + 5)
 
 ## 개요
-GitHub Actions에서 ARM64 이미지를 빌드해 4B의 private registry로 push하고, 5B에서 Docker Compose로 앱을 실행합니다. 4B의 Nginx가 TLS를 종료하고 5B로 리버스 프록시합니다.
+GitHub Actions에서 ARM64 이미지를 빌드해 4B의 private registry로 push하고, 5B에서 Docker Compose로 앱을 실행합니다. 4B의 Nginx가 TLS를 종료하고 5B로 리버스 프록시합니다. 필요하면 Actions에서 SSH로 5B에 접속해 자동 배포까지 수행합니다.
 
 ## 사전 준비
 - 4B: MariaDB 실행 중, 5B에서 3306 접근 가능
-- 4B: Docker private registry 실행 중(인증 없음, insecure registry 허용)
-- 4B 또는 5B: self-hosted GitHub Actions runner(ARM64)
-- 5B: Docker Engine + Compose plugin 설치
+- 4B: Docker private registry 실행 중(인증 사용, HTTP/insecure 허용)
+- 외부에서 registry 접근 가능한 포트포워딩 완료
+- 5B: Docker Engine + Compose plugin 설치, `/apps/algorithm-blog` 디렉토리 준비
+- 5B: Actions가 접근할 수 있도록 SSH 포트 오픈(자동 배포를 쓸 경우)
 
 ## GitHub Actions 워크플로
 1) `deploy/cicd.yml`을 `.github/workflows/cicd.yml`로 복사합니다.
-2) self-hosted runner 라벨이 `self-hosted`, `linux`, `arm64`인지 확인합니다.
-3) runner의 Docker 데몬에 insecure registry를 허용해야 합니다.
+2) GitHub Secrets를 설정합니다.
+3) `main` 브랜치에 push하면 테스트 → 이미지 빌드/푸시 → (옵션) SSH 배포 순으로 실행됩니다.
 
 ### GitHub Secrets 설정 (예시 + 형식 설명)
-- `REGISTRY_HOST` (필수): `192.168.0.4:5000`
-  - 형식: `호스트:포트`만 입력 (`http://` 등 스키마 금지)
-- `REGISTRY_USERNAME` (선택): `registry_user`
-  - private registry가 basic auth를 쓰는 경우만 설정
-- `REGISTRY_PASSWORD` (선택): `strong-password-here`
+- `REGISTRY_IMAGE` (필수): `example.com:5000/algorithm-blog`
+  - 형식: `호스트:포트/이미지명` (스키마 금지)
+- `REGISTRY_USERNAME` (필수): `registry_user`
+  - private registry 계정
+- `REGISTRY_PASSWORD` (필수): `strong-password-here`
   - `REGISTRY_USERNAME`의 비밀번호
+- `DEPLOY_HOST` (선택): `example.com`
+  - 자동 배포 대상(5B) SSH 호스트
+- `DEPLOY_USER` (선택): `pi`
+  - SSH 로그인 사용자
+- `DEPLOY_KEY` (선택): `-----BEGIN OPENSSH PRIVATE KEY-----...`
+  - SSH 개인키(개행 포함 그대로 등록)
 
-인증이 없는 레지스트리라면 `REGISTRY_USERNAME`, `REGISTRY_PASSWORD`는 비워 두세요(로그인 단계가 자동으로 건너뜁니다).
+`DEPLOY_HOST`가 비어 있으면 배포 단계는 자동으로 건너뜁니다.
 
 ## MariaDB (4B) 예시
 ```sql
