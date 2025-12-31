@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,10 +41,10 @@ public class WebOAuthSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .httpBasic().disable()
-                .formLogin().disable()
-                .logout().disable();
+        http.csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable);
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -51,10 +52,10 @@ public class WebOAuthSecurityConfig {
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
-        http.authorizeRequests()
+        http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/token", "/login", "/signup").permitAll()
                 .requestMatchers("/api/**").authenticated()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll());
 
         http.oauth2Login()
                 .loginPage("/login")
