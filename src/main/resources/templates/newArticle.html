@@ -7,9 +7,9 @@
         <div class="breadcrumb">
             <a href="/">Home</a>
             <span>/</span>
-            <a href="/articles?type=이론정리">Articles</a>
+            <a th:href="@{/articles(type=${defaultType})}">목록</a>
             <span>/</span>
-            <span th:text="${article.id != null ? 'Edit' : 'New'}">New</span>
+            <span th:text="${article.id != null ? '수정' : '글 작성'}">글 작성</span>
         </div>
 
         <article class="editor-shell">
