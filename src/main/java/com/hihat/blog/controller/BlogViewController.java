@@ -107,6 +107,7 @@ public class BlogViewController {
                     .toList();
         }
         model.addAttribute("defaultType", defaultType);
+        model.addAttribute("type", defaultType);
         model.addAttribute("selectedCategoryIds", selectedCategoryIds);
         model.addAttribute("selectedCategoryIdsCsv", joinCategoryIds(selectedCategoryIds));
         model.addAttribute("contentPanelPadding", false);
