@@ -109,6 +109,7 @@ public class BlogViewController {
         model.addAttribute("defaultType", defaultType);
         model.addAttribute("selectedCategoryIds", selectedCategoryIds);
         model.addAttribute("selectedCategoryIdsCsv", joinCategoryIds(selectedCategoryIds));
+        model.addAttribute("contentPanelPadding", false);
         model.addAttribute("categoryOptions", categoryRepository.findAllByOrderByNameKoAsc()
                 .stream()
                 .map(AlgorithmCategoryOption::new)

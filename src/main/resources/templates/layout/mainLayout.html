@@ -89,7 +89,7 @@
           </th:block>
         </div>
       </aside>
-      <div class="content-panel px-3">
+      <div class="content-panel" th:classappend="${contentPanelPadding == false} ? '' : ' px-3'">
         <div th:replace="${mainSection}"></div>
       </div>
     </div>
