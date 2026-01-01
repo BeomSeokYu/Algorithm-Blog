@@ -15,7 +15,7 @@
                 <p class="page-subtitle">핵심 개념과 풀이 흐름을 짧고 선명하게 정리했습니다.</p>
             </div>
             <div class="page-actions" id="register-btn-div">
-                <button type="button" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/new-article(type=${type})}'|">글 등록</button>
+                <button type="button" class="btn btn-primary btn-sm" th:onclick="|location.href='@{/new-article(type=${type}, categories=${selectedCategoryIdsCsv})}'|">글 등록</button>
             </div>
         </div>
 

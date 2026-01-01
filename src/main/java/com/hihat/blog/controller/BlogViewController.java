@@ -92,9 +92,10 @@ public class BlogViewController {
     @GetMapping("/new-article")
     public String newArticle(@RequestParam(required = false) Long id,
                              @RequestParam(required = false) String type,
+                             @RequestParam(required = false) String categories,
                              Model model) {
         String defaultType = type != null ? type : "이론정리";
-        List<Long> selectedCategoryIds = new ArrayList<>();
+        List<Long> selectedCategoryIds = parseCategoryIds(categories);
         if (id == null) {
             model.addAttribute("article", new ArticleViewResponse());
         } else {
