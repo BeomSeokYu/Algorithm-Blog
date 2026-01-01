@@ -1120,18 +1120,63 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+    .site-nav {
+        padding: 0 0.5rem;
+    }
+
     .nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
     }
 
     .nav-links {
-        flex-wrap: wrap;
+        order: 3;
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: center;
+        overflow-x: auto;
+        gap: 0.6rem;
+        padding-bottom: 0.25rem;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links .nav-link {
+        white-space: nowrap;
+    }
+
+    .brand {
+        order: 1;
+    }
+
+    .brand-text {
+        font-size: 1rem;
+    }
+
+    .brand-mark {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nav-auth {
+        order: 2;
+        margin-left: auto;
     }
 
     .page-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-text {
+        display: none;
     }
 }
 
